@@ -1,0 +1,12 @@
+[project]
+name = "label-generator-cli"
+version = "2.0.0"
+description = "The command line for the Yale Special Collections label generator"
+requires-python = "==3.12.*"
+dependencies = [
+    "lxml>=4.9",
+    "python-docx>=1.1",
+]
+
+[tool.uv]
+package = false
