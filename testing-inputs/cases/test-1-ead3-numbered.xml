@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ead xmlns="http://ead3.archivists.org/schema/">
+  <control countryencoding="iso3166-1" dateencoding="iso8601" langencoding="iso639-2b" relatedencoding="marc" repositoryencoding="iso15511" scriptencoding="iso15924">
+    <recordid instanceurl="https://hdl.handle.net/10079/fa/beinecke.ashe">beinecke.ashe</recordid>
+    <filedesc>
+      <titlestmt>
+        <titleproper>Guide to the Robert Ashe Papers </titleproper>
+        <titleproper localtype="filing">Ashe (Robert) Papers</titleproper>
+        <author>Quin DeLaRosa</author>
+      </titlestmt>
+      <publicationstmt>
+        <publisher>Beinecke Rare Book and Manuscript Library</publisher>
+        <address><addressline>P. O. Box 208330</addressline><addressline>New Haven, CT 06520-8330</addressline><addressline localtype="telephone">(203) 432-2977 </addressline><addressline localtype="email">beinecke.library@yale.edu</addressline><addressline><ref href="http://beinecke.library.yale.edu/" linktitle="http://beinecke.library.yale.edu/" show="new">http://beinecke.library.yale.edu/</ref></addressline></address>
+        <date>May 2025</date>
+        <num>GEN MSS 2157</num>
+      </publicationstmt>
+      <notestmt>
+        <controlnote>
+          <p>This encoded finding aid is compliant with Yale EAD Best Practice Guidelines, Version 1.0.</p>
+        </controlnote>
+      </notestmt>
+    </filedesc>
+    <maintenancestatus value="derived"/>
+    <maintenanceagency countrycode="US">
+      <agencycode>US-CtY-BR</agencycode>
+      <agencyname>Beinecke Rare Book and Manuscript Library</agencyname>
+    </maintenanceagency>
+    <languagedeclaration>
+      <language langcode="eng">English</language>
+      <script scriptcode="Latn">Latin</script>
+    </languagedeclaration>
+    <conventiondeclaration>
+      <abbr>dacs</abbr>
+      <citation>Describing Archives: A Content Standard</citation>
+    </conventiondeclaration>
+    <localcontrol localtype="findaidstatus">
+      <term>completed</term>
+    </localcontrol>
+    <maintenancehistory>
+      <maintenanceevent>
+        <eventtype value="derived"/>
+        <eventdatetime>2026-08-31T02:08:14-04:00</eventdatetime>
+        <agenttype value="machine"/>
+        <agent>ArchivesSpace v3.3.1-yale-prod-07012026</agent>
+        <eventdescription>This finding aid was produced using ArchivesSpace on Monday August 31, 2026 at 02:08</eventdescription>
+      </maintenanceevent>
+    </maintenancehistory>
+  </control>
+  <archdesc altrender="/repositories/11/resources/13803" level="collection">
+    <did>
+      <unittitle>Robert Ashe papers</unittitle>
+      <unitid>GEN MSS 2157</unitid>
+      <repository>
+        <corpname>
+          <part>Beinecke Rare Book and Manuscript Library</part>
+        </corpname>
+      </repository>
+      <langmaterial>
+        <language langcode="eng">English</language>
+        <language langcode="fre">French</language>
+        <languageset>
+          <language langcode="mkh">Mon-Khmer languages</language>
+          <script scriptcode="Khmr">Khmer</script>
+        </languageset>
+        <descriptivenote>
+          <p>Chiefly in English, some material in French and Khmer.</p>
+        </descriptivenote>
+      </langmaterial>
+      <physdescstructured coverage="part" physdescstructuredtype="spaceoccupied">
+        <quantity>10.58</quantity>
+        <unittype>Linear Feet</unittype>
+      </physdescstructured>
+      <physdesc localtype="container_summary">(13 boxes)</physdesc>
+      <physdescstructured coverage="part" physdescstructuredtype="spaceoccupied">
+        <quantity>1</quantity>
+        <unittype>broadsides</unittype>
+      </physdescstructured>
+      <unitdatestructured label="creation" unitdatetype="inclusive">
+        <daterange>
+          <fromdate standarddate="1953">1953</fromdate>
+          <todate standarddate="1986">1986</todate>
+        </daterange>
+      </unitdatestructured>
+      <unitdatestructured label="creation" unitdatetype="bulk">
+        <daterange>
+          <fromdate standarddate="1974">1974</fromdate>
+          <todate standarddate="1986">1986</todate>
+        </daterange>
+      </unitdatestructured>
+      <abstract id="aspace_93dc5314ff9ecb3d02da93db495c6a4d">The Robert Ashe papers consist of correspondence, reports, photographs, press clippings, publications, and maps documenting British humanitarian worker Robert Ashe's involvement with international relief efforts to aid Cambodian refugees in the late 1970s and early 1980s.</abstract>
+      <origination label="Creator">
+        <persname rules="rda" source="local_beinecke">
+          <part localtype="agent_person">Ashe, Robert</part>
+        </persname>
+      </origination>
+      <origination label="Source">
+        <persname rules="rda" source="local_beinecke">
+          <part localtype="agent_person">Ashe-Blair, Aam Zamila</part>
+        </persname>
+      </origination>
+    </did>
+    <dsc>
+      <c01 altrender="/repositories/11/archival_objects/3938877" id="aspace_70cdd3594b3cd88546c0a3024eae27dc" level="series">
+        <did>
+          <unittitle>Correspondence and reports</unittitle>
+          <unitid>1</unitid>
+          <physdescstructured coverage="whole" physdescstructuredtype="spaceoccupied">
+            <quantity>0.83</quantity>
+            <unittype>Linear Feet</unittype>
+          </physdescstructured>
+          <unitdatestructured altrender="1977-1984" label="creation" unitdatetype="inclusive">
+            <daterange>
+              <fromdate standarddate="1977">1977</fromdate>
+              <todate standarddate="1984">1984</todate>
+            </daterange>
+          </unitdatestructured>
+        </did>
+        <arrangement id="aspace_3e50136c5f6df4a604b3ce961e28469b">
+          <head>Arrangement</head>
+          <p>Series I is arranged chronologically.</p>
+        </arrangement>
+        <scopecontent id="aspace_0c0a86773528561dce11a36a4c1bee9f">
+          <head>Scope and Contents</head>
+          <p>Series I contains correspondence and reports created, received, and/or compiled by Robert Ashe.</p>
+          <p>Correspondents include numerous private individuals, many of whom sought Ashe's perspective for their research on humanitarian operations. Representatives of numerous organizations -- government, international, and non-governmental -- are represented in the correspondence as well. This notably includes the militant partisan leader Kong Sileah. Ashe's reports to ICRC and Christian Outreach, circa 1979-1981, feature heavily in this series. Ashe's leadership of Nong Chan, especially regarding the operations of the "Land Bridge," is a central topic across each of these categories.</p>
+          <p>Personal narratives written by Cambodian refugees are interspersed across this series. Most of these writings have been translated into English.</p>
+        </scopecontent>
+        <c02 altrender="/repositories/11/archival_objects/3938881" id="aspace_e080013f7ea9d76026bf8a41367702da" level="file">
+          <did>
+            <unittitle>Refugee narratives and correspondence with British officials</unittitle>
+            <unitdatestructured altrender="1977" label="creation" unitdatetype="inclusive">
+              <daterange>
+                <fromdate standarddate="1977">1977</fromdate>
+              </daterange>
+            </unitdatestructured>
+            <container altrender="/repositories/11/top_containers/411249 /locations/9" containerid="39002140865826" encodinganalog="archive legal" id="aspace_8c014d43c5f379e02626a2a6ab05a089" label="Mixed Materials" localtype="box">1</container>
+            <container id="aspace_911e607cefcd1f93940381467116038c" localtype="folder" parent="aspace_8c014d43c5f379e02626a2a6ab05a089">1</container>
+          </did>
+        </c02>
+        <c02 altrender="/repositories/11/archival_objects/3938882" id="aspace_cd2832d104afdf4fda9ae1521152b7e2" level="file">
+          <did>
+            <unittitle>Robert Ashe, <title><part>The Dark Night</part></title> pamphlet</unittitle>
+            <unitdatestructured altrender="1977" label="creation" unitdatetype="inclusive">
+              <daterange>
+                <fromdate standarddate="1977">1977</fromdate>
+              </daterange>
+            </unitdatestructured>
+            <container altrender="/repositories/11/top_containers/411249 /locations/9" containerid="39002140865826" encodinganalog="archive legal" id="aspace_d28bf93c23799928be845a56d578e59e" label="Mixed Materials" localtype="box">1</container>
+            <container id="aspace_74f71ef30df8f0459cd7ef0593ad518e" localtype="folder" parent="aspace_d28bf93c23799928be845a56d578e59e">2</container>
+          </did>
+        </c02>
+        <c02 altrender="/repositories/11/archival_objects/3938883" id="aspace_bd0bec6aa14631721bbd3e2c4c9703a0" level="file">
+          <did>
+            <unittitle>Correspondence, reports, press, and personal narratives on the forced repatriation of Cambodian refugees</unittitle>
+            <unitdatestructured altrender="1979" label="creation" unitdatetype="inclusive">
+              <daterange>
+                <fromdate standarddate="1979">1979</fromdate>
+              </daterange>
+            </unitdatestructured>
+            <langmaterial>
+              <language langcode="eng">English</language>
+              <language langcode="mkh">Mon-Khmer languages</language>
+              <descriptivenote>
+                <p>Material is in English and Khmer.</p>
+              </descriptivenote>
+            </langmaterial>
+            <container altrender="/repositories/11/top_containers/411249 /locations/9" containerid="39002140865826" encodinganalog="archive legal" id="aspace_141a3b2440e8062f642a8fe3653cc320" label="Mixed Materials" localtype="box">1</container>
+            <container id="aspace_534e3f1de440b78f766759deefc2081b" localtype="folder" parent="aspace_141a3b2440e8062f642a8fe3653cc320">3-4</container>
+          </did>
+          <scopecontent id="aspace_a587e53c2546522911b6d3fbefd94219">
+            <head>Scope and Contents</head>
+            <p>Also includes an article by historian Ben Kiernan.</p>
+          </scopecontent>
+        </c02>
+        <c02 altrender="/repositories/11/archival_objects/3938884" id="aspace_500354fcd1c934b0214db0f3c61e0104" level="file">
+          <did>
+            <unittitle>Refugee narratives and Paul Quinn-Judge's <title><part>Notes on the Political Sources of Conflict Between Vietnam and Cambodia</part></title></unittitle>
+            <unitdatestructured altrender="1979 February, undated" label="creation" unitdatetype="inclusive">
+              <daterange>
+                <fromdate standarddate="1979-02">1979-02</fromdate>
+              </daterange>
+            </unitdatestructured>
+            <langmaterial>
+              <language langcode="eng">English</language>
+              <language langcode="mkh">Mon-Khmer languages</language>
+              <descriptivenote>
+                <p>Material is in English and Khmer.</p>
+              </descriptivenote>
+            </langmaterial>
+            <container altrender="/repositories/11/top_containers/411249 /locations/9" containerid="39002140865826" encodinganalog="archive legal" id="aspace_ce7ab4a349346ba6b7018b7551587f33" label="Mixed Materials" localtype="box">1</container>
+            <container id="aspace_5c89bb3fc26bc76572773b8430e76e91" localtype="folder" parent="aspace_ce7ab4a349346ba6b7018b7551587f33">5</container>
+          </did>
+        </c02>
+        <c02 altrender="/repositories/11/archival_objects/3938885" id="aspace_ca3272cfd642e46278bd78c4ecb71afa" level="file">
+          <did>
+            <unittitle>Correspondence between forcibly repatriated refugees and their friends and families</unittitle>
+            <unitdatestructured altrender="1979 April" label="creation" unitdatetype="inclusive">
+              <daterange>
+                <fromdate standarddate="1979-04">1979-04</fromdate>
+              </daterange>
+            </unitdatestructured>
+            <container altrender="/repositories/11/top_containers/411249 /locations/9" containerid="39002140865826" encodinganalog="archive legal" id="aspace_d2b8c51c2273f0ef7c328057fd7748d4" label="Mixed Materials" localtype="box">1</container>
+            <container id="aspace_78c129f0e37382416e8322e652f04a42" localtype="folder" parent="aspace_d2b8c51c2273f0ef7c328057fd7748d4">6</container>
+          </did>
+        </c02>
+      </c01>
+      <c01 altrender="/repositories/11/archival_objects/3938878" id="aspace_0f0703663bf9c8a21d4b334c00cd182f" level="series">
+        <did>
+          <unittitle>Photographs</unittitle>
+          <unitid>2</unitid>
+          <physdescstructured coverage="whole" physdescstructuredtype="spaceoccupied">
+            <quantity>3.25</quantity>
+            <unittype>Linear Feet</unittype>
+          </physdescstructured>
+          <unitdatestructured altrender="circa 1975-1981" label="creation" unitdatetype="inclusive">
+            <daterange>
+              <fromdate standarddate="1975">1975</fromdate>
+              <todate standarddate="1981">1981</todate>
+            </daterange>
+          </unitdatestructured>
+        </did>
+        <arrangement id="aspace_32a14e04f1ca2fc679622ec7160aaceb">
+          <head>Arrangement</head>
+          <p>Series II is arranged primarily by ascending numerical groupings of film rolls. Within film rolls, files are arranged chronologically.</p>
+        </arrangement>
+        <processinfo id="aspace_669d4760ed0d3d31e8bdeb19b4d0f997">
+          <head>Processing Information</head>
+          <p>Photographs were removed from their original housing -- small, flip photo albums -- for preservation considerations during processing. These albums have been retained for their inscriptions and production information and are represented in the description by the file "Original photographic housing, circa 1976-1981."</p>
+        </processinfo>
+        <scopecontent id="aspace_7f72caabd71fc6dc4fcb662d4723438c">
+          <head>Scope and Contents</head>
+          <p>Series II contains approximately 1,100 color and black-and-white photographic prints compiled by Robert Ashe. With the exception of one file containing 8"x10" prints, almost all are roughly 3"x5". Versos often contain additional information such as film roll numbers and, ocassionally, descriptive captions.</p>
+          <p>Image content features extensive subject matter relating to life in the refugee camps with a focus on Nong Chan. Such content includes though is not limited to images depicting Robert Ashe, resident and non-resident refugees, relief workers, construction of camp facilities, recreational activities, childrens' educational programming, distribution of rice by ICRC, distribution of fishing nets by Christian Outreach, and the funeral of militant partisan leader Kong Sileah.</p>
+          <p>Graphic depictions of deceased persons are present in Boxes 3 and 5. These images include depictions of mass graves, decomposing corpses, and victims of the Cambodian Genocide.</p>
+        </scopecontent>
+        <c02 altrender="/repositories/11/archival_objects/3938904" id="aspace_2c4363af6751c773ebdb7a4af8b128e0" level="file">
+          <did>
+            <unittitle>Film 00</unittitle>
+          </did>
+          <c03 altrender="/repositories/11/archival_objects/3938951" id="aspace_03ee734cc3b5f850b6b5853d676c3a01" level="file">
+            <did>
+              <unittitle>"Film 00 May '77"</unittitle>
+              <unitdatestructured altrender="1977 May" label="creation" unitdatetype="inclusive">
+                <daterange>
+                  <fromdate standarddate="1977-05">1977-05</fromdate>
+                </daterange>
+              </unitdatestructured>
+              <container altrender="/repositories/11/top_containers/411245 /locations/9" containerid="39002140865883" encodinganalog="card box (6d 3h 12w)" id="aspace_3d47bc0ad4456224b934042ee640feb6" label="Mixed Materials" localtype="box">3</container>
+            </did>
+          </c03>
+          <c03 altrender="/repositories/11/archival_objects/3938952" id="aspace_64d189ca53d0e8143624c86b4b12e77d" level="file">
+            <did>
+              <unittitle>"MAY 1977"</unittitle>
+              <unitdatestructured altrender="1977 May" label="creation" unitdatetype="inclusive">
+                <daterange>
+                  <fromdate standarddate="1977-05">1977-05</fromdate>
+                </daterange>
+              </unitdatestructured>
+              <container altrender="/repositories/11/top_containers/411245 /locations/9" containerid="39002140865883" encodinganalog="card box (6d 3h 12w)" id="aspace_e33c3c15f71c2eacbdbbc1eb8c1d03dc" label="Mixed Materials" localtype="box">3</container>
+            </did>
+          </c03>
+        </c02>
+        <c02 altrender="/repositories/11/archival_objects/3938905" id="aspace_4fa5f8676924dbade34b34b450d65378" level="file">
+          <did>
+            <unittitle>Film 07</unittitle>
+          </did>
+          <c03 altrender="/repositories/11/archival_objects/3938953" id="aspace_39b7a3c0da318b88afddd56e1a35a2d1" level="file">
+            <did>
+              <unittitle>"Film 07 SEPT. 77"</unittitle>
+              <unitdatestructured altrender="1977 September" label="creation" unitdatetype="inclusive">
+                <daterange>
+                  <fromdate standarddate="1977-09">1977-09</fromdate>
+                </daterange>
+              </unitdatestructured>
+              <container altrender="/repositories/11/top_containers/411245 /locations/9" containerid="39002140865883" encodinganalog="card box (6d 3h 12w)" id="aspace_2e992c769236d75c2a46fa081b3ea581" label="Mixed Materials" localtype="box">3</container>
+            </did>
+          </c03>
+        </c02>
+        <c02 altrender="/repositories/11/archival_objects/3938906" id="aspace_7cb3c8bc9ff4a0b8fece8406d14dee78" level="file">
+          <did>
+            <unittitle>Film 09</unittitle>
+          </did>
+          <c03 altrender="/repositories/11/archival_objects/3938954" id="aspace_6a9b3f6e5d8cf61fc025834ff0c215f3" level="file">
+            <did>
+              <unittitle>"FILM 09 OCT. 77"</unittitle>
+              <unitdatestructured altrender="1977 October" label="creation" unitdatetype="inclusive">
+                <daterange>
+                  <fromdate standarddate="1977-10">1977-10</fromdate>
+                </daterange>
+              </unitdatestructured>
+              <container altrender="/repositories/11/top_containers/411245 /locations/9" containerid="39002140865883" encodinganalog="card box (6d 3h 12w)" id="aspace_9c599dadd2419df2814d65148e7a2306" label="Mixed Materials" localtype="box">3</container>
+            </did>
+          </c03>
+        </c02>
+      </c01>
+    </dsc>
+  </archdesc>
+</ead>

@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ead xmlns="urn:isbn:1-931666-22-9" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd">
+  <eadheader countryencoding="iso3166-1" dateencoding="iso8601" langencoding="iso639-2b" repositoryencoding="iso15511">
+    <eadid countrycode="US" mainagencycode="US-CtY-BR" url="https://hdl.handle.net/10079/fa/beinecke.chopin">beinecke.chopin</eadid>
+    <filedesc>
+      <titlestmt>
+        <titleproper type="filing">Chopin (Henri) Papers</titleproper>
+        <titleproper>Guide to the Henri Chopin Papers
+ <num>GEN MSS 868</num></titleproper>
+        <author>by Danijela True, Jennifer Meehan, and Molly Wheeler; Brooke McManus</author>
+      </titlestmt>
+      <publicationstmt>
+        <publisher>Beinecke Rare Book and Manuscript Library</publisher>
+        <p><date>2012. Revised: October 2022</date></p>
+        <address><addressline>P. O. Box 208330</addressline><addressline>New Haven, CT 06520-8330</addressline><addressline>Telephone: (203) 432-2977 </addressline><addressline>beinecke.library@yale.edu</addressline><addressline>URL: <extptr xlink:href="http://beinecke.library.yale.edu/" xlink:show="new" xlink:title="http://beinecke.library.yale.edu/" xlink:type="simple"/></addressline></address>
+      </publicationstmt>
+      <notestmt>
+        <note>
+          <p>This finding aid, which is compliant with the Yale EAD Best Practice Guidelines, Version 1.0., has a MARC record in Yale's ILS with the following bib number: <num type="Orbis-bib">11003328</num>.</p>
+        </note>
+      </notestmt>
+    </filedesc>
+    <profiledesc>
+      <creation>This finding aid was produced using ArchivesSpace on <date>2023-10-13 23:50:16 UTC</date>.</creation>
+      <langusage>Finding aid written in English.</langusage>
+      <descrules>Describing Archives: A Content Standard</descrules>
+    </profiledesc>
+    <revisiondesc>
+      <change audience="internal">
+        <date>January 2015</date>
+        <item>Finding aid revision description not supplied.</item>
+      </change>
+    </revisiondesc>
+  </eadheader>
+  <archdesc level="collection">
+    <did>
+      <repository>
+        <corpname>Beinecke Rare Book and Manuscript Library</corpname>
+      </repository>
+      <unittitle>Henri Chopin papers</unittitle>
+      <origination label="Creator">
+        <persname>Chopin, Henri, 1922-2008</persname>
+      </origination>
+      <unitid>GEN MSS 868</unitid>
+      <unitid audience="internal" identifier="514" type="Archivists Toolkit Database::RESOURCE">514</unitid>
+      <physdesc altrender="whole">
+        <extent altrender="materialtype spaceoccupied">34.34 Linear Feet</extent>
+        <extent altrender="carrier">(90 boxes) + 9 record album storage, 31 broadside, 5 art.</extent>
+      </physdesc>
+      <unitdate datechar="creation" normal="1948/2009" type="inclusive">1948-2009</unitdate>
+      <unitdate datechar="creation" normal="1960/2007" type="bulk">1960-2007</unitdate>
+      <abstract id="aspace_f8fe6cc0b8282763739a726ba1e5d979">The Henri Chopin Papers document the work and life of French avant-garde poet and musician Henri Chopin. The papers consist of personal and professional correspondence, subject files, writings relating to various publications, artwork, writings of others, photographs, audiovisual materials, and posters spanning the years 1948 to 2009.</abstract>
+      <langmaterial>
+      <language langcode="fre">French</language>
+.    </langmaterial>
+    </did>
+    <dsc>
+      <c01 id="aspace_ref12" level="series">
+        <did>
+          <unittitle>Correspondence and Subject Files</unittitle>
+          <unitid>1</unitid>
+          <unitid audience="internal" identifier="154992" type="Archivists Toolkit Database::RESOURCE_COMPONENT">154992</unitid>
+          <physdesc altrender="whole">
+            <extent altrender="materialtype spaceoccupied">6 Linear Feet</extent>
+            <extent altrender="carrier">(13 boxes)</extent>
+          </physdesc>
+          <unitdate datechar="creation" normal="1960/2004" type="inclusive">1960-2004</unitdate>
+        </did>
+        <arrangement id="aspace_c588de05e4fdb61655804db3687feeb5">
+          <head>Arrangement</head>
+          <p>The first run of correspondence is arranged alphabetically by correspondent. The second run of correspondence is arranged by the correspondents' country of origin and other subjects. Filed at the end of the series is various correspondence not included with the others.</p>
+        </arrangement>
+        <scopecontent id="aspace_11607bcaf12233de462b58d31e567ef4">
+          <head>Scope and Contents</head>
+          <p>Series I consists of files of correspondence and other material shedding light on Chopin's development as an artist.</p>
+        </scopecontent>
+        <c02 id="aspace_ref14" level="file">
+          <did>
+            <unittitle>"A" General</unittitle>
+            <unitid audience="internal" identifier="155394" type="Archivists Toolkit Database::RESOURCE_COMPONENT">155394</unitid>
+            <unitdate datechar="creation" normal="1978/1993" type="inclusive">1978-1993, undated</unitdate>
+            <container id="aspace_8d4465d4621dfb6ef4bdc560002864f6" label="Mixed Materials [39002104722468]" type="Box">1</container>
+          </did>
+        </c02>
+        <c02 id="aspace_ref15" level="file">
+          <did>
+            <unittitle>Aquaviva, Frédéric</unittitle>
+            <unitid audience="internal" identifier="155393" type="Archivists Toolkit Database::RESOURCE_COMPONENT">155393</unitid>
+            <unitdate datechar="creation" normal="2001/2007" type="inclusive">2001-2007, undated</unitdate>
+            <container id="aspace_1a332c7f5c6ecd90d2eee377f61b1eeb" label="Mixed Materials [39002104722468]" type="Box">1</container>
+          </did>
+        </c02>
+        <c02 id="aspace_ref16" level="file">
+          <did>
+            <unittitle>Albert-Birot, Arlette</unittitle>
+            <unitid audience="internal" identifier="155392" type="Archivists Toolkit Database::RESOURCE_COMPONENT">155392</unitid>
+            <unitdate datechar="creation" normal="1969/2000" type="inclusive">1969-2000, undated</unitdate>
+            <container id="aspace_19f1c2a5c2408f5146b03583ae69b2f6" label="Mixed Materials [39002104722468]" type="Box">1</container>
+          </did>
+        </c02>
+      </c01>
+      <c01 id="aspace_ref873" level="series">
+        <did>
+          <unittitle>Audiovisual Material</unittitle>
+          <unitid>7</unitid>
+          <unitid audience="internal" identifier="154203" type="Archivists Toolkit Database::RESOURCE_COMPONENT">154203</unitid>
+          <physdesc altrender="whole">
+            <extent altrender="materialtype spaceoccupied">15.62 Linear Feet</extent>
+            <extent altrender="carrier">(46 boxes) + 3 objects</extent>
+          </physdesc>
+          <unitdate datechar="creation" normal="1957/2007" type="inclusive">1957-2007</unitdate>
+        </did>
+        <scopecontent id="aspace_f666a2664c32cf945b4ca663c7468ae7">
+          <head>Scope and Contents</head>
+          <p>Series VII includes non-commercial and commercially released audiovisual material containing performances, interviews, studio recordings, and other recordings documenting the work of Henri Chopin and other musicians and poets. The Sound Recordings subseries includes sound recordings by Chopin and others across several formats. Most of the reel-to-reel audiotapes by Chopin were likely used in his performances. The Video Recordings subseries includes VHS, BetacamSP, and DVD recordings of Chopin and his contemporaries. The Other Audiovisual Material subseries contains digital audiotapes and computer disks by Chopin and various sound recording equipment owned by Chopin, including three reel-to-reel tape recorders, two microphones, and an audiotape cutter and scissors.</p>
+        </scopecontent>
+        <arrangement id="aspace_eb41c295fecde0ab26107dbeba76ae7f">
+          <head>Arrangement</head>
+          <p>Organized into three subseries: Sound Recordings, Video Recordings, and Other Audiovisual Material.</p>
+        </arrangement>
+        <accessrestrict id="aspace_33f677634bc0f49f396f095375a54b04">
+          <head>Conditions Governing Access</head>
+          <p>Boxes 37-53 and 72 (sound recordings): Restricted fragile material. Reference copies may be requested. Consult Access Services for further information.</p>
+          <p>Box 81 (computer disks): ‡a Restricted Fragile Material. Reference copies of electronic files may be requested. Consult Access Services for further information.</p>
+          <p>Boxes 54-71 and 73-80 (sound and video) Restricted fragile material. Reference copies may be requested. Consult Access Services for further information.</p>
+        </accessrestrict>
+        <otherfindaid audience="internal" id="aspace_d62e768b-3012-4930-a84a-d8b4e178e5d7">
+          <head>TypeCollection</head>
+          <p>https://preservica.library.yale.edu/explorer/explorer.html#prop:4&amp;d62e768b-3012-4930-a84a-d8b4e178e5d7</p>
+        </otherfindaid>
+        <c02 id="aspace_ref875" level="subseries">
+          <did>
+            <unittitle>Sound Recordings</unittitle>
+            <unitid audience="internal" identifier="154243" type="Archivists Toolkit Database::RESOURCE_COMPONENT">154243</unitid>
+          </did>
+          <scopecontent id="aspace_7e3fbef630791fa777c2e08ab6341f26">
+            <head>Scope and Contents</head>
+            <p>Parenthetical codes were assigned by the dealer. Codes correspond to the dealer description received with the collection.</p>
+          </scopecontent>
+          <arrangement id="aspace_987bb82f396f92170578344d46c1dab5">
+            <head>Arrangement</head>
+            <p>This subseries is organized under headings by format: reel-to-reel tapes, 10" and 12" vinyl sound discs, 7" vinyl sound discs, audiocassettes (commercially released and non-commercial), non-commercial compact discs, and commercially released compact discs.</p>
+          </arrangement>
+          <otherfindaid audience="internal" id="aspace_55da569b-cf94-45f7-b5eb-82e9e32701fc">
+            <head>TypeCollection</head>
+            <p>https://preservica.library.yale.edu/explorer/explorer.html#prop:4&amp;55da569b-cf94-45f7-b5eb-82e9e32701fc</p>
+          </otherfindaid>
+          <c03 id="aspace_ref876" level="file">
+            <did>
+              <unittitle>Reel-to-reel tapes</unittitle>
+              <unitid audience="internal" identifier="154445" type="Archivists Toolkit Database::RESOURCE_COMPONENT">154445</unitid>
+            </did>
+            <accessrestrict id="aspace_8b307182f6aeaf2a9d2f2290090d3877">
+              <head>Conditions Governing Access</head>
+              <p>Boxes 37-53 (sound recordings): Restricted fragile material. Reference copies may be requested. Consult Access Services for further information.</p>
+            </accessrestrict>
+            <scopecontent id="aspace_a29a05b2b754e1c2498adce2a09b2526">
+              <head>Scope and Contents</head>
+              <p>Includes works by Chopin and works by others.</p>
+            </scopecontent>
+            <otherfindaid audience="internal" id="aspace_36b0bce2-b932-4d1d-ac1d-99efd0e9875f">
+              <head>TypeCollection</head>
+              <p>https://preservica.library.yale.edu/explorer/explorer.html#prop:4&amp;36b0bce2-b932-4d1d-ac1d-99efd0e9875f</p>
+            </otherfindaid>
+            <c04 id="aspace_ref1095" level="file">
+              <did>
+                <unittitle>Commercially released reel-to-reel tapes (15 reels)</unittitle>
+                <unitid audience="internal" identifier="154446" type="Archivists Toolkit Database::RESOURCE_COMPONENT">154446</unitid>
+              </did>
+              <otherfindaid audience="internal" id="aspace_b77c97dd-e161-4de4-8d79-a98d0c4cda4c">
+                <head>TypeCollection</head>
+                <p>https://preservica.library.yale.edu/explorer/explorer.html#prop:4&amp;b77c97dd-e161-4de4-8d79-a98d0c4cda4c</p>
+              </otherfindaid>
+              <c05 id="aspace_17978ad5c07a7cbfee414c59121eec5a" level="file">
+                <did>
+                  <unittitle>Hausmann, Raoul. RLQS Varie En 3 Cascades</unittitle>
+                  <physdesc altrender="whole">
+                    <extent altrender="materialtype spaceoccupied">1 Audiotape Reels</extent>
+                    <dimensions>1/4 inch; diameter 4 inches</dimensions>
+                  </physdesc>
+                  <physdesc altrender="whole">
+                    <extent altrender="materialtype spaceoccupied">00:25:17 Duration (HH:MM:SS.mmm)</extent>
+                  </physdesc>
+                  <unitdate datechar="creation" normal="1966-05-25/1966-05-26" type="inclusive">1966-05-25-1966-05-26</unitdate>
+                  <materialspec id="aspace_438724876d72f9cbf7f35d8fba52b360">Static can be heard on the tape.</materialspec>
+                  <container id="aspace_c06e36f26f05f19087da11e39b6fa07e" label="Mixed Materials [39002104722971]" type="Box">52</container>
+                  <container id="aspace_231e6d7a36fffe455753504c8582d554" parent="aspace_c06e36f26f05f19087da11e39b6fa07e" type="item_barcode">39002109889726</container>
+                  <dao audience="internal" xlink:actuate="onRequest" xlink:href="https://preservica.library.yale.edu/explorer/explorer.html#prop:7&amp;df7d5d90-285a-4b2c-b474-4000a5214da9" xlink:role="Digital Preservation Staff System" xlink:show="new" xlink:title="[Preservica] gen_mss_0868_39002109889726" xlink:type="simple">
+                    <daodesc>
+                      <p>[Preservica] gen_mss_0868_39002109889726: 2020-04-11</p>
+                    </daodesc>
+                  </dao>
+                </did>
+                <accessrestrict id="aspace_6ef4cf12ec7727132337e4cb160e4e83">
+                  <head>Conditions Governing Access</head>
+                  <p>Audiovisual material. Restricted fragile. Reference copies may be requested. Consult Access Services for further information.</p>
+                </accessrestrict>
+                <otherfindaid audience="internal" id="aspace_6333e6be-87c8-4562-835f-486a15db03a7">
+                  <head>TypeCollection</head>
+                  <p>https://preservica.library.yale.edu/explorer/explorer.html#prop:4&amp;6333e6be-87c8-4562-835f-486a15db03a7</p>
+                </otherfindaid>
+              </c05>
+            </c04>
+          </c03>
+          <c03 id="aspace_ref1240" level="file">
+            <did>
+              <unittitle>Audiocassettes, commercially released and non-commercial</unittitle>
+              <unitid audience="internal" identifier="154271" type="Archivists Toolkit Database::RESOURCE_COMPONENT">154271</unitid>
+            </did>
+            <accessrestrict id="aspace_e889fd2a1d2ba52172e701e2b2c261f9">
+              <head>Conditions Governing Access</head>
+              <p>Boxes 63-71 and 80 (sound recordings): Use of originals is restricted. Reference copies may be requested. Consult Access Services for further information.</p>
+            </accessrestrict>
+            <otherfindaid audience="internal" id="aspace_99f63fce-851e-4e9a-b0ab-4b90fafce653">
+              <head>TypeCollection</head>
+              <p>https://preservica.library.yale.edu/explorer/explorer.html#prop:4&amp;99f63fce-851e-4e9a-b0ab-4b90fafce653</p>
+            </otherfindaid>
+            <c04 id="aspace_ref1246" level="file">
+              <did>
+                <unittitle>Chopin, Henri. "Audiopoems 1956-1980"</unittitle>
+                <unitid audience="internal" identifier="154299" type="Archivists Toolkit Database::RESOURCE_COMPONENT">154299</unitid>
+                <physdesc altrender="whole">
+                  <extent altrender="materialtype spaceoccupied">1 Audiocassettes</extent>
+                </physdesc>
+                <physdesc altrender="whole">
+                  <extent altrender="materialtype spaceoccupied">00:51:13 Duration (HH:MM:SS.mmm)</extent>
+                </physdesc>
+                <unitdate datechar="creation">undated</unitdate>
+                <container id="aspace_9325f97aa7765105b0e951a2e21dbd80" label="Mixed Materials [39002104723086]" type="Box">63</container>
+                <container id="aspace_5baf33ef10ec4c2d1a5103eff33876c0" parent="aspace_9325f97aa7765105b0e951a2e21dbd80" type="item_barcode">39002104502928</container>
+                <dao audience="internal" xlink:actuate="onRequest" xlink:href="https://preservica.library.yale.edu/explorer/explorer.html#prop:7&amp;b9de0334-0251-4fbf-b075-198aa03e5a83" xlink:role="Digital Preservation Staff System" xlink:show="new" xlink:title="[Preservica] gen_mss_0868_39002104502928" xlink:type="simple">
+                  <daodesc>
+                    <p>[Preservica] gen_mss_0868_39002104502928: 2020-05-13</p>
+                  </daodesc>
+                </dao>
+                <daogrp xlink:title="[Aviary] gen_mss_0868_39002104502928_a.u.mp3" xlink:type="extended">
+                  <daodesc>
+                    <p>[Aviary] gen_mss_0868_39002104502928_a.u.mp3</p>
+                  </daodesc>
+                  <daoloc xlink:href="https://beineckelibrary.aviaryplatform.com/r/sf2m61d427" xlink:role="video-streaming" xlink:type="locator"/>
+                  <daoloc xlink:href="https://d9jk7wjtjpu5g.cloudfront.net/collection_resource_files/thumbnails/000/202/706/original/open-uri20230802-555-t8rnxq?1690992588" xlink:role="image-thumbnail" xlink:type="locator"/>
+                </daogrp>
+              </did>
+              <scopecontent audience="internal" id="aspace_af6064c7586ed577526dcab8b2701ff6">
+                <head>Scope and Contents</head>
+                <p>Contents of the audiocassette are listed below.</p>
+                <list type="ordered">
+                  <head>Side 1/Side 2</head>
+                  <item>"Rouge", audiopoem 1956. 3' 04".</item>
+                  <item>"Dynamisme intégral", audiopoem 1973. 4' 07".</item>
+                  <item>"French lesson", audiopoem 1974. Unpublished. 5' 15".</item>
+                  <item>"Hoppa Back", 1970. 5' 55".</item>
+                  <item>"Pêche de Nuit", 1957. 11' 40".</item>
+                  <item>"Tête-tête", 1971-73. Unpublished. 3' 40".</item>
+                  <item>"L'Agrippe des Droits", 1980. 10' 06".</item>
+                </list>
+              </scopecontent>
+              <accessrestrict id="aspace_c8e599b69192e8044796700e21ee46a7">
+                <head>Conditions Governing Access</head>
+                <p>Audiovisual material. Restricted fragile. Reference copies may be requested. Consult Access Services for further information.</p>
+              </accessrestrict>
+              <otherfindaid audience="internal" id="aspace_dd22bb50-a7c9-4fef-ba3c-93865179cc71">
+                <head>TypeCollection</head>
+                <p>https://preservica.library.yale.edu/explorer/explorer.html#prop:4&amp;dd22bb50-a7c9-4fef-ba3c-93865179cc71</p>
+              </otherfindaid>
+            </c04>
+            <c04 id="aspace_ref1276" level="file">
+              <did>
+                <unittitle>Works by others, unsorted</unittitle>
+                <unitid audience="internal" identifier="154274" type="Archivists Toolkit Database::RESOURCE_COMPONENT">154274</unitid>
+                <physdesc id="aspace_3032d20d42f135de7b62d3f1fe696a7f">(34 audiocassettes)</physdesc>
+              </did>
+              <otherfindaid audience="internal" id="aspace_e0146191-b03b-487b-8081-eeb6b9bd2ee5">
+                <head>TypeCollection</head>
+                <p>https://preservica.library.yale.edu/explorer/explorer.html#prop:4&amp;e0146191-b03b-487b-8081-eeb6b9bd2ee5</p>
+              </otherfindaid>
+              <c05 id="aspace_66a264e6140f6cac540b8d10171cdade" level="file">
+                <did>
+                  <unittitle>Seuphor, Michel. </unittitle>
+                  <physdesc altrender="whole">
+                    <extent altrender="materialtype spaceoccupied">1 Audiocassettes</extent>
+                  </physdesc>
+                  <physdesc altrender="whole">
+                    <extent altrender="materialtype spaceoccupied">00:42:09 Duration (HH:MM:SS.mmm)</extent>
+                  </physdesc>
+                  <unitdate datechar="creation">undated</unitdate>
+                  <materialspec id="aspace_a86a2b30b388dce33dc835b65d6cc9b3">The program is distorted at times. Static can be heard on the tape.</materialspec>
+                  <container id="aspace_a6a2a12c5959cf7e145d07fb4fe06301" label="Mixed Materials [39002104723151]" type="Box">70</container>
+                  <container id="aspace_b0aa39ecd99a008d47a57309fb0243f4" parent="aspace_a6a2a12c5959cf7e145d07fb4fe06301" type="item_barcode">39002104507786</container>
+                  <dao audience="internal" xlink:actuate="onRequest" xlink:href="https://preservica.library.yale.edu/explorer/explorer.html#prop:7&amp;d5c33527-990c-4e8b-89dd-e0fd7240d111" xlink:role="Digital Preservation Staff System" xlink:show="new" xlink:title="[Preservica] gen_mss_0868_39002104507786" xlink:type="simple">
+                    <daodesc>
+                      <p>[Preservica] gen_mss_0868_39002104507786: 2020-04-02</p>
+                    </daodesc>
+                  </dao>
+                  <daogrp xlink:title="[Aviary] gen_mss_0868_39002104507786_a.u.mp3" xlink:type="extended">
+                    <daodesc>
+                      <p>[Aviary] gen_mss_0868_39002104507786_a.u.mp3</p>
+                    </daodesc>
+                    <daoloc xlink:href="https://beineckelibrary.aviaryplatform.com/r/pz51g0kc9m" xlink:role="video-streaming" xlink:type="locator"/>
+                    <daoloc xlink:href="https://d9jk7wjtjpu5g.cloudfront.net/collection_resource_files/thumbnails/000/203/886/original/open-uri20230808-555-eobnt3?1691508449" xlink:role="image-thumbnail" xlink:type="locator"/>
+                  </daogrp>
+                </did>
+                <scopecontent id="aspace_c119c038e56d582f5a443bb1a7b387b4">
+                  <head>Scope and Contents</head>
+                  <list type="ordered">
+                    <head>Face 1 / Face 2</head>
+                    <item>"Poème Modèle", 1926</item>
+                    <item>"Poème 131", 1927</item>
+                    <item>"Pour la St Spinoza", 1978</item>
+                    <item>"Pour la St Oiseau", 1978</item>
+                    <item>"Le nageur", 1960</item>
+                    <item>"Falamagre", 1963</item>
+                    <item>"Comme le temps passe", 1962</item>
+                    <item>"Les vieux amis", 1963</item>
+                    <item>"Le Rossignol", 1964</item>
+                    <item>"Fidèle à l'amour du jeu", 1973</item>
+                    <item>"La Puste", 1972</item>
+                    <item>"Investiture", 1973</item>
+                    <item>"Un résumé de tout", 1973</item>
+                    <item>"Communiqué", 1958</item>
+                    <item>Servir la Poésie", 1958</item>
+                    <item>"Le nouveau-né", 1962</item>
+                    <item>"Curriculum", 1972</item>
+                    <item>"Lentement", 1960</item>
+                    <item>"Prière sur l'Acropole", 1962</item>
+                  </list>
+                </scopecontent>
+                <accessrestrict id="aspace_60bb41f4644f2826f44b22a7ca58767b">
+                  <head>Conditions Governing Access</head>
+                  <p>Audiovisual material. Restricted fragile. Reference copies may be requested. Consult Access Services for further information.</p>
+                </accessrestrict>
+                <otherfindaid audience="internal" id="aspace_a9e46a58-aaa0-4ab9-be4c-e65115a36e98">
+                  <head>TypeCollection</head>
+                  <p>https://preservica.library.yale.edu/explorer/explorer.html#prop:4&amp;a9e46a58-aaa0-4ab9-be4c-e65115a36e98</p>
+                </otherfindaid>
+              </c05>
+            </c04>
+            <c04 id="aspace_ref1278" level="file">
+              <did>
+                <unittitle>Works by others, unsorted</unittitle>
+                <unitid audience="internal" identifier="154273" type="Archivists Toolkit Database::RESOURCE_COMPONENT">154273</unitid>
+                <physdesc id="aspace_54491ee78b953a8acf8ca00014acf1a7">(35 audiocassettes)</physdesc>
+              </did>
+              <otherfindaid audience="internal" id="aspace_54544543-8db7-4306-895d-e30687cd807d">
+                <head>TypeCollection</head>
+                <p>https://preservica.library.yale.edu/explorer/explorer.html#prop:4&amp;54544543-8db7-4306-895d-e30687cd807d</p>
+              </otherfindaid>
+              <c05 id="aspace_27c0ee88d1072680824837a9b081fbe7" level="file">
+                <did>
+                  <unittitle>Seuphor, Michel. </unittitle>
+                  <physdesc altrender="whole">
+                    <extent altrender="materialtype spaceoccupied">1 Audiocassettes</extent>
+                  </physdesc>
+                  <physdesc altrender="whole">
+                    <extent altrender="materialtype spaceoccupied">00:42:05 Duration (HH:MM:SS.mmm)</extent>
+                  </physdesc>
+                  <unitdate datechar="creation" normal="1979-10/1979-10">1979 October</unitdate>
+                  <container id="aspace_0cd529bc5ce8dca21b11eda70d73f212" label="Mixed Materials [39002104723169]" type="Box">71</container>
+                  <container id="aspace_730eefbba3a378e2622eaaf9be7463de" parent="aspace_0cd529bc5ce8dca21b11eda70d73f212" type="item_barcode">39002104508222</container>
+                  <dao audience="internal" xlink:actuate="onRequest" xlink:href="https://preservica.library.yale.edu/explorer/explorer.html#prop:7&amp;85d3fa30-3dce-4e16-9377-94c535762495" xlink:role="Digital Preservation Staff System" xlink:show="new" xlink:title="[Preservica] gen_mss_0868_39002104508222" xlink:type="simple">
+                    <daodesc>
+                      <p>[Preservica] gen_mss_0868_39002104508222: 2020-04-02</p>
+                    </daodesc>
+                  </dao>
+                  <daogrp xlink:title="[Aviary] gen_mss_0868_39002104508222_a.u.mp3" xlink:type="extended">
+                    <daodesc>
+                      <p>[Aviary] gen_mss_0868_39002104508222_a.u.mp3</p>
+                    </daodesc>
+                    <daoloc xlink:href="https://beineckelibrary.aviaryplatform.com/r/348gf0p437" xlink:role="video-streaming" xlink:type="locator"/>
+                    <daoloc xlink:href="https://d9jk7wjtjpu5g.cloudfront.net/collection_resource_files/thumbnails/000/204/348/original/open-uri20230809-600356-hym23t?1691591369" xlink:role="image-thumbnail" xlink:type="locator"/>
+                  </daogrp>
+                </did>
+                <scopecontent id="aspace_d1de7d80d0f0c3de97c20de60e076d74">
+                  <head>Scope and Contents</head>
+                  <list type="ordered">
+                    <head>Face 1 / Face 2</head>
+                    <item>"Poème Modèle", 1926</item>
+                    <item>"Poème 131", 1927</item>
+                    <item>"Poème 132", 1927</item>
+                    <item>"Poème 111", 1927</item>
+                    <item>"Tout en roulant les RR", 1927</item>
+                    <item>"Sinnge sannge", 1929</item>
+                    <item>"Erreur Brevetée", 1929</item>
+                    <item>"Cartes sur table", 1963</item>
+                    <item>"Discours Politique", 1962</item>
+                    <item>"Chant Toltèque", 1963</item>
+                    <item>"Langue vivante", 1963</item>
+                    <item>"Maille hillilil", 1962</item>
+                    <item>"Chanson de la dernière chance", 1966</item>
+                    <item>"Chanson de la fatalité", 1966</item>
+                    <item>"Chanson porte-chance", 1966</item>
+                    <item>"Pour la St Socrate", 1978</item>
+                    <item>"Pour la St Erasme", 1978</item>
+                    <item>"Pour la St Spinoza", 1978</item>
+                    <item>"Pour la St Oiseau", 1978</item>
+                    <item>"Le nageur", 1960</item>
+                    <item>"Falamagre", 1963</item>
+                    <item>"Comme le temps passe", 1962</item>
+                    <item>"Les vieux amis", 1963</item>
+                    <item>"Le Rossignol", 1964</item>
+                    <item>"Fidèle à l'amour du jeu", 1973</item>
+                    <item>"La Puste", 1972</item>
+                    <item>"Investiture", 1973</item>
+                    <item>"Un résumé de tout", 1973</item>
+                    <item>"Communiqué", 1958</item>
+                    <item>"Servir la Poésie", 1958</item>
+                    <item>"Le nouveau-né", 1962</item>
+                    <item>"Curriculum", 1972</item>
+                    <item>"Lentement", 1960</item>
+                    <item>"Prière sur l'Acropole", 1962</item>
+                  </list>
+                </scopecontent>
+                <accessrestrict id="aspace_d0deb11a7a192f5b98e965d80a161e7b">
+                  <head>Conditions Governing Access</head>
+                  <p>Audiovisual material. Restricted fragile. Reference copies may be requested. Consult Access Services for further information.</p>
+                </accessrestrict>
+                <otherfindaid audience="internal" id="aspace_6f56de22-643f-48ad-bb37-b5b0dee743a1">
+                  <head>TypeCollection</head>
+                  <p>https://preservica.library.yale.edu/explorer/explorer.html#prop:4&amp;6f56de22-643f-48ad-bb37-b5b0dee743a1</p>
+                </otherfindaid>
+              </c05>
+            </c04>
+          </c03>
+        </c02>
+      </c01>
+    </dsc>
+  </archdesc>
+</ead>
