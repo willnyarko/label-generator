@@ -1,0 +1,12 @@
+# Build / env
+.venv/
+build/
+dist/
+uv.lock
+
+# Caches
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
