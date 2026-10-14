@@ -1,0 +1,49 @@
+# The Avery sheets labels are printed on: how many labels, how big, and where
+# they sit on the page. All measures are in inches, taken from the legacy Word templates.
+# (Note: A "twip" is a unit of measurement used in Microsoft Word for internal page
+# measurements. It is one twentieth of a point, so 1440 twips make one inch:
+# 1 point = 20 twips; 1 inch = 72 points; 72 × 20 = 1440 twips. We use legacy Yale
+# label generation templates and derive inches by dividing their twips by 1440.)
+#
+# Every sheet here is two labels across, and the Word writer lays out pairs, so
+# `cols` stays 2.
+#
+# A box is routed to a sheet by lrr/box_kinds.py, which names the sheets here.
+
+[page]
+width_in = 8.5
+height_in = 11.0
+
+# The sheet every folder label is printed on.
+[folder_stock]
+sheet = "avery-5161"
+
+# Folder labels: default_folder_template.docm
+[avery-5161]
+cols = 2
+rows = 10
+label_width_in = 4.0
+label_height_in = 1.0
+gutter_in = 0.2
+margin_top_in = 0.65
+margin_side_in = 0.2
+
+# Half Hollinger and tall flat boxes: half_holl_*.docm
+[avery-5163]
+cols = 2
+rows = 5
+label_width_in = 4.0
+label_height_in = 2.0
+gutter_in = 0.13
+margin_top_in = 0.5
+margin_side_in = 0.13
+
+# Full Hollinger and Paige boxes: box_template_*.docm
+[avery-5164]
+cols = 2
+rows = 3
+label_width_in = 4.0
+label_height_in = 3.4
+gutter_in = 0.1
+margin_top_in = 0.65
+margin_side_in = 0.2

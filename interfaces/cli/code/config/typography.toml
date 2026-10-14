@@ -1,0 +1,22 @@
+# The type on printed labels. When a size or font is changed here, it is reflected on every label.
+# Sizes are measured in points.
+# For quick reference:
+# Type is the lettering itself, as it is printed on the label.
+# A size says how tall the letters stand on the label.
+# Since there are 72 points to the inch, a point is a little over a third of a millimetre.
+
+[folder]               # default_folder_template, left_labels_folder_template
+font = "Arial"
+size = 10
+
+[box.full]             # box_template_*
+font = "Arial"
+size = 8
+
+[box.half-hollinger]   # vertical_half_holl_*
+font = "Arial"
+size = 10
+
+[box.flat]             # half_horizontal_holl_*
+font = "Arial"
+size = 10

@@ -1,0 +1,27 @@
+# The kinds of box that box labels are made for. Each kind names the Avery sheet its
+# labels print on, the ending added to its file name, and whether its text runs
+# sideways. Currently, there are three kinds.
+# (Note: When "auto" is chosen, the program picks a kind for each box from its container
+# type, using the container types and the flat box height listed here.)
+
+# Full Hollinger or Paige box: any box that isn't one of the kinds below will take this one.
+[full]
+sheet = "avery-5164"
+suffix = "_box_labels"
+vertical = false
+
+# Half Hollinger box: labels which are normally placed on the side of the box, so the text runs sideways.
+[half-hollinger]
+sheet = "avery-5163"
+suffix = "_box_labels_half_hollinger"
+vertical = true
+container_types = ["archive half legal", "archive half letter"]
+
+# Tall flat box: this uses the same label as the half Hollinger box, the only exception being that the text runs horizontally.
+# If a container type starts with "flat box" and a height derived from it is above the `taller_than_inches` field, the box is a tall flat box.
+[flat]
+sheet = "avery-5163"
+suffix = "_box_labels_flat"
+vertical = false
+container_type_starts = "flat box"
+taller_than_inches = 2

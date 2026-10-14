@@ -1,0 +1,21 @@
+{
+  "_note": "The following lists Yale Special Collections ArchivesSpace repositories that a collection can belong to. This file is read while a YCAR record is being built, to turn the repository number in a spreadsheet's resource URI into the name a reader sees, and to list the repositories a person can choose from. We configure this list according to current Yale ArchivesSpace instance configuration; therefore it is essentially data with respect to this project. It will be manually updated if any changes happen in Yale's ArchivesSpace repository numbering and naming.",
+  "schema": "repository-vocabulary-2",
+  "repositories": [
+    {"number": "2", "short": "YCBA-RBM", "long": "Yale Center for British Art, Rare Books and Manuscripts"},
+    {"number": "3", "short": "YCBA-IA", "long": "Yale Center for British Art, Institutional Archives"},
+    {"number": "4", "short": "Divinity", "long": "Yale Divinity Library"},
+    {"number": "5", "short": "Arts", "long": "Robert B. Haas Family Arts Library Special Collections"},
+    {"number": "6", "short": "Music", "long": "Gilmore Music Library"},
+    {"number": "7", "short": "OHAM", "long": "Oral History of American Music"},
+    {"number": "8", "short": "Walpole", "long": "Lewis Walpole Library"},
+    {"number": "10", "short": "Medical", "long": "Medical Historical Library, Cushing/Whitney Medical Library"},
+    {"number": "11", "short": "BRBL", "long": "Beinecke Rare Book and Manuscript Library"},
+    {"number": "12", "short": "MSSA", "long": "Manuscripts and Archives"},
+    {"number": "15", "short": "Peabody", "long": "Yale Peabody Museum of Natural History"},
+    {"number": "17", "short": "YUAG", "long": "Yale University Art Gallery"},
+    {"number": "18", "short": "YNHHA", "long": "Yale New Haven Hospital Archives"},
+    {"number": "19", "short": "LAW", "long": "Lillian Goldman Law Library"},
+    {"number": "20", "short": "YFA", "long": "Yale Film Archive"}
+  ]
+}

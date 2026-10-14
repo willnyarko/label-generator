@@ -1,0 +1,247 @@
+# This file's purpose is to contain what is displayed in the UI.
+#
+# For code, we ask for a dotted key, for example
+# say("notices.empty-file.text", path=...), and fill the {placeholders}.
+# We try not to let code hold a sentence of its own.
+#
+# Also, try to keep the voice as plain as possible so everyone can understand.
+# When you do, show (1) what happened, and then (2) what to do about it.
+#
+# Additionally, when you use a literal brace in a string, make sure it is
+# doubled ({{ or }}).
+#
+# Where things are. The file follows what a person meets, and each block opens
+# with a banner like the ones below. New wording goes in the block for the moment
+# a person meets it.
+#
+# What every route says
+#   [notice]        How a notice reads when it is printed     notices.py
+#   [notices.*]     One table per notice: its number, whether
+#                   it is an error or a note, what happened
+#                   and what to do                            notices.py
+#   [ead_reason]    Why an EAD file could not be read         readers/ead.py, readers/detect.py
+#   [labels]        These are texts that stand-in or words which are printed on labels
+#                                                             lrr/derive.py, models/ycar.py,
+#                                                             projections/label_content.py
+#
+# The command line (main.py)
+#   [cli.start]     Starting the program: the welcome and the file menu
+#   [cli.ask]       Questions asked of the user: typed answers and numbered menus
+#   [cli.after]     After the run: the summary, the notes and "Done."
+
+# ==============================================================================
+# What every route says
+# ==============================================================================
+
+# --- How a notice reads when printed --------------------------------------------
+
+[notice]
+text = "{kind} {number} ({name}): {text}\nWhat to do: {fix}"
+error = "Error"
+note = "Note"
+
+# --- Notices ------------------------------------------------------------------
+# One table per notice. Users can quote the number and name when they report
+# something. The list of notices in docs/technical/notices.md is checked
+# against this file.
+
+[notices.not-a-file]
+number = 101
+kind = "error"
+text = "There is no file inside {path}."
+fix = "This is a folder, or something else is wrong. Bring in the .xml or .csv file that works with this system."
+
+[notices.wrong-file-type]
+number = 102
+kind = "error"
+text = "{name} is not an .xml or .csv file, so it is not appropriate for this system and its workflows."
+fix = "Use an EAD XML file exported from ArchivesSpace, or a bulk archival object import spreadsheet (CSV only)."
+
+[notices.cannot-open]
+number = 103
+kind = "error"
+text = "Can't open {path}: {reason}."
+fix = "There is something wrong with the file's \"permissions\". Perhaps you should close it if it's open in Excel or another program, and see if it'll work."
+
+[notices.empty-file]
+number = 104
+kind = "error"
+text = "{path} is empty."
+fix = "Try again, because this file has nothing in it."
+
+[notices.unreadable-ead]
+number = 201
+kind = "error"
+text = "Can't read {name} as EAD: {reason}."
+fix = "Can't read this one, so export an EAD2002 or EAD3 from ArchivesSpace again."
+
+[notices.not-bulk-import]
+number = 202
+kind = "error"
+text = "{name} is a CSV file, but it is not a bulk archival object import spreadsheet."
+fix = "Use the Yale bulk import spreadsheet or the ArchivesSpace bulk archival object import spreadsheet, with their header rows kept as they are."
+
+[notices.replaced-characters]
+number = 203
+kind = "note"
+text = "This file has {count} character(s) that XML doesn't allow ({characters}), so each one was replaced with \"?\" to read the file (line(s) {lines})."
+fix = "Check those lines. If a \"?\" shows up on a label where the original character matters, correct it in ArchivesSpace and export the finding aid again."
+
+[notices.nothing-to-label]
+number = 301
+kind = "error"
+text = "Nothing is showing up to build the labels from."
+fix = "Check that the EAD's <dsc> holds c components, or that the spreadsheet has component rows. For box labels alone, the components also need box numbers. (Tip: make sure to always check the \"Include unpublished\" box in ArchivesSpace before hitting \"Download EAD\")"
+
+[notices.missing-box]
+number = 302
+kind = "note"
+text = "{sentinel} is a made-up box number because the system couldn't figure out what is unusual about the container metadata."
+fix = "If you knew this would happen, then you probably know what to do. Otherwise, you might want to fix either the source or the labels before printing (or both)."
+
+[notices.missing-identity]
+number = 303
+kind = "note"
+text = "This file doesn't have the name of the collection or the call number; since none was typed in, the labels show it as unavailable."
+fix = "You can use Find and Replace to edit before printing, or you can run the program again and type them in."
+
+[notices.no-repository]
+number = 304
+kind = "note"
+text = "Repository unavailable means we perceive a box but we couldn't link the box to a legitimate Yale ArchivesSpace repository. It's weird."
+fix = "Choose the repository and run it again."
+
+# Why an EAD file could not be read; fills {reason} in notices.unreadable-ead.
+[ead_reason]
+not_ead = "this is XML but not an EAD XML file"
+malformed = "this XML is malformed ({detail})"
+namespace = "it is neither EAD2002 nor EAD3"
+no_archdesc = "it has no archdesc element"
+
+# --- Stand-ins printed on a label when the source or input file has nothing inside ----------------------
+# These are label contents that will appear on the printed sheet.
+
+[labels]
+collection_unavailable = "Collection unavailable"
+call_number_unavailable = "Call number unavailable"
+repository_unavailable = "Repository unavailable"
+component_title_unavailable = "Title unavailable"
+date_unavailable = "Date unavailable"
+box_heading = "Box {box}"
+box_and_folder = "Box {box}  Folder {folder}"
+folder_range = "Folders {first}–{last}"
+folder_single = "Folder {first}"
+series = "Series {number}"
+folder_part = "{title} [{number} of {total}]"
+folder_count_one = "{count} folder"
+folder_count_many = "{count} folders"
+
+# ================================================================================
+# The command line
+# ================================================================================
+
+# --- Starting the program -----------------------------------------------------
+# Starting with no arguments, for when using the program requires double-clicking it or something equivalent to that for running the program.
+
+[cli.start]
+welcome = "Label Generator makes box and folder labels from an ArchivesSpace EAD export or a bulk import spreadsheet."
+usage = "Drag an EAD (.xml) or a bulk import spreadsheet (.csv) onto the program, or start it on its own to choose one."
+files_menu = "Which file are the labels for?"
+files_where = "({name}, {place})"
+files_here = "in this folder"
+files_downloads = "in Downloads"
+files_sheet = "Bulk import spreadsheet {where}"
+files_other = "Another file: drag it into this window"
+files_none = "There is no EAD file or bulk import spreadsheet in this folder, and none in Downloads from the last {days} days."
+ask_file = "Drag your file into this window and press Enter: "
+file_missing = "There is no file at {path}. Try again."
+
+# --- Questions asked of a user --------------------------------------------
+# Questions asked only when someone is at the keyboard. The collection name and call number are typed in; every other question displays a numbered menu that an end user can choose from.
+
+[cli.ask]
+choose = "Enter a number: "
+choose_default = "Enter a number, or press Enter for the default: "
+choose_invalid = "Please enter a number from 1 to {count}."
+keys = "(b: back, q: quit)"
+keys_quit = "(q: quit)"
+identity_collection = "This file doesn't have the name of the collection in it. Type it in, or press Enter to leave it out: "
+identity_call_number = "This file doesn't have the call number in it. Type it in, or press Enter to leave it out: "
+repository_menu = "This file doesn't say which repository the collection is in. Which is it?"
+scope_menu = "What are the labels for?"
+scope_all = "The whole collection (default)"
+scope_boxes = "Chosen boxes"
+scope_aggregates = "Chosen series, subseries or other aggregates"
+boxes_list = "Boxes in this collection, in shelf order:"
+boxes_ask = "Type the boxes, such as 12-15 or 3, 7-9: "
+boxes_invalid = "Please use box numbers from the list above, such as 12-15 or 3, 7-9."
+aggregates_list = "Aggregates in this collection, in the order of the finding aid:"
+aggregates_outside = "Folders outside any aggregate"
+aggregates_ask = "Type their numbers, such as 2 or 3, 5-7: "
+aggregates_invalid = "Please enter numbers from 1 to {count}, such as 2 or 3, 5-7."
+usual_menu = """How should the labels be made?
+  1. Go with the usual choices (two labels per folder, one label per box based on container type in ASpace, folders shown on box labels)
+  2. Let me choose"""
+labels_menu = """Labels to make:
+  1. Folder labels and box labels (default)
+  2. Folder labels only
+  3. Box labels only"""
+box_folders_menu = """Box labels:
+  1. Show the folders in each box (default)
+  2. Leave folders off, for example when the boxes hold no folders"""
+numbering_menu = """Folders will be numbered starting again at 1 in each box.
+  1. Keep this (default)
+  2. Number them in one count through the whole collection instead"""
+first_folder = "What number does the first folder in this file take? Press Enter for 1. "
+first_folder_invalid = "Please enter a whole number, such as 1 or 288."
+layout_menu = """Folder labels:
+  1. Left and right labels, 10 folders per sheet (default)
+  2. Left labels only, 20 folders per sheet"""
+box_kind_menu = """Which kind of box are the labels for?
+  1. Chosen box by box from each box's container type
+  2. Every box is a full Hollinger or Paige box
+  3. Every box is a half Hollinger box
+  4. Every box is a tall flat box
+Notes: Option 1 uses the full Hollinger or Paige label for every box that is not a half Hollinger or tall flat box.
+Option 4 is the same label as option 3, with the text running horizontally."""
+summary_heading = "Ready to make labels:"
+summary_file = "  File: {name}"
+summary_labels = "  Labels: {labels}"
+summary_scope = "  For: {scope}"
+summary_numbering = "  Folder numbering: {numbering}"
+summary_layout = "  Folder labels: {layout}"
+summary_box_folders = "  Folders on box labels: {folders}"
+summary_box_kind = "  Kind of box: {kind}"
+summary_make = "  1. Make the labels (default)"
+labels_both = "folder labels and box labels"
+labels_folders = "folder labels only"
+labels_boxes = "box labels only"
+scope_all_named = "the whole collection"
+scope_boxes_named = "boxes {typed}"
+scope_aggregates_named = "{titles}"
+numbering_per_box = "starting again at 1 in each box"
+numbering_through = "one count through the whole collection"
+numbering_through_from = "one count through the whole collection, starting at {first}"
+numbering_stated = "as the file numbers them"
+layout_regular = "left and right labels"
+layout_left = "left labels only"
+box_folders_shown = "shown"
+box_folders_left_off = "left off"
+box_kind_auto = "chosen box by box"
+box_kind_full = "full Hollinger or Paige"
+box_kind_half = "half Hollinger"
+box_kind_flat = "tall flat"
+
+# --- After the run ------------------------------------------------------------
+# Printed after a run.
+
+[cli.after]
+collection_line = "Collection: {title} ({call_number})"
+counts_both = "Folders: {folders}  Boxes: {boxes}"
+counts_folders = "Folders: {folders}"
+counts_boxes = "Boxes: {boxes}"
+outputs_line = "Your labels are in {folder}:"
+done = "Done."
+quit = "Nothing was made."
+pause = "Press Enter to close this window. "
+error = "Error: {error}"
