@@ -11,11 +11,22 @@ It takes an EAD or a bulk archival object import spreadsheet as input to generat
 
 ```mermaid
 flowchart LR
-    A([EAD finding aid]):::input --> G{{Label Generator}}:::tool
-    B([Bulk archival object import spreadsheet]):::input --> G
-    G --> F[Folder labels]:::out
-    G --> X[Box labels]:::out
-    F --> P([Print and apply]):::done
+    subgraph IN[Input]
+        A([EAD]):::input
+        B([CSV]):::input
+    end
+    subgraph OUT[Output]
+        F[Folder labels]:::out
+        X[Box labels]:::out
+    end
+    subgraph HANDS[" "]
+        P([Print]):::done --> Y([Apply]):::done
+    end
+    A --> G{{Label Generator}}:::tool
+    B --> G
+    G --> F
+    G --> X
+    F --> P
     X --> P
     classDef input fill:#ffd166,stroke:#b8860b,color:#222
     classDef tool fill:#118ab2,stroke:#073b4c,color:#fff
