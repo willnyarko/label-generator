@@ -2,12 +2,12 @@
 
 - **Owner:** Will Nyarko
 - **Date(s):**
-  - Updated: 2026-10-11
+  - Updated: 2026-11-24
 - **Description:** Tool for generating archival folder and box labels.
 
-The `Label Generator` allows Yale archival staff to generate ready-to-print folder and box labels.
+Label Generator makes Word sheets of folder and box labels for Yale archival staff. It also exports the rows used to make those labels as CSV files.
 
-It takes an EAD or a bulk archival object import spreadsheet as input to generate files that staff can easily print as labels to be applied on various standard and custom boxes and folders.
+Start with an EAD2002 or EAD3 finding aid, or a bulk import CSV in the ArchivesSpace-native or Yale-custom layout.
 
 ```mermaid
 flowchart LR
@@ -34,13 +34,12 @@ flowchart LR
     classDef done fill:#ef476f,stroke:#9d0d33,color:#fff
 ```
 
-The current implementation of this tool supports the command line, desktop and web, each with its code and documentation:
+## Using Label Generator
 
-- Command line: [`interfaces/cli`](interfaces/cli)
-- Desktop: [`interfaces/desktop`](interfaces/desktop)
-- Web: [`interfaces/web`](interfaces/web)
+- [Command-line tool](interfaces/cli/README.md) — make labels in a terminal.
+- [Desktop app guide](interfaces/desktop/README.md) — make labels in the application window.
 
-The files you can use to test the tool are found in [`testing-inputs`](testing-inputs).
+To try a collection and check the resulting labels, use the [sample inputs and expected results](testing-inputs/README.md).
 
 > [!NOTE]
 > This tool is optimized for the ArchivesSpace archival management system and for Yale, and it can be configured to fit a different system or institution.

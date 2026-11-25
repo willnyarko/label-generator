@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{{title}}</title>
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --panel: #ffffff;
+    --ink: #1c2430;
+    --muted: #5d6b7a;
+    --line: #e3e8ee;
+    --brand: #1f6feb;
+    --brand-ink: #ffffff;
+    --ok: #1a7f4b;
+    --warn: #9a6700;
+    --err: #b42318;
+    --accent-a: #e8f0fe;
+    --accent-b: #eef7f0;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(16,24,40,.06), 0 8px 24px rgba(16,24,40,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1117; --panel: #161b22; --ink: #e6edf3; --muted: #9aa7b4;
+      --line: #283039; --brand: #4493f8; --accent-a: #16263f; --accent-b: #14271c;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  header.app {
+    padding: 22px 28px; border-bottom: 1px solid var(--line);
+    background: var(--panel); display: flex; align-items: center; gap: 14px;
+  }
+  header.app .logo {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--brand), #6aa9ff);
+    display: grid; place-items: center; color: #fff; font-weight: 800;
+  }
+  header.app h1 { font-size: 18px; margin: 0; letter-spacing: -.01em; }
+  header.app p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+  main { max-width: 1140px; margin: 0 auto; padding: 24px; display: grid; gap: 20px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 880px) { main { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px;
+  }
+  .card h2 { margin: 0 0 14px; font-size: 14px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .span2 { grid-column: 1 / -1; }
+
+  /* Dropzone */
+  #drop {
+    border: 2px dashed var(--line); border-radius: var(--radius);
+    padding: 34px; text-align: center; cursor: pointer; transition: .15s;
+    background: linear-gradient(0deg, transparent, transparent);
+  }
+  #drop.drag { border-color: var(--brand); background: var(--accent-a); }
+  #drop strong { color: var(--brand); }
+  #drop .hint { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  input[type=file] { display: none; }
+
+
+  dl.meta { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin: 0; }
+  dl.meta dt { color: var(--muted); }
+  dl.meta dd { margin: 0; font-weight: 600; }
+
+  .stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .stat { flex: 1 1 90px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  .stat .n { font-size: 22px; font-weight: 700; }
+  .stat .l { font-size: 12px; color: var(--muted); }
+
+  fieldset { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin: 0 0 14px; }
+  legend { padding: 0 6px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  label.opt { display: inline-flex; align-items: center; gap: 8px; margin: 4px 14px 4px 0; cursor: pointer; }
+  select, input[type=number], input[type=text] { font: inherit; padding: 7px 10px; border-radius: 9px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+  input[type=text] { width: 100%; }
+  input[type=text]:focus { outline: 2px solid var(--brand); outline-offset: -1px; }
+  label.field { display: block; margin: 8px 0; }
+  label.field > span { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+
+  .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  button {
+    font: inherit; font-weight: 650; border: 1px solid transparent; border-radius: 10px;
+    padding: 10px 18px; cursor: pointer; transition: .12s;
+  }
+  button.primary { background: var(--brand); color: var(--brand-ink); }
+  button.primary:hover { filter: brightness(1.05); }
+  button.ghost { background: transparent; border-color: var(--line); color: var(--ink); }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+
+  table.sample { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.sample th, table.sample td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  table.sample th { color: var(--muted); font-weight: 600; }
+  table.sample td { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+
+  .choices { max-height: 12rem; overflow: auto; overflow-wrap: anywhere; }
+  .choices label.opt { display: flex; }
+  details.more > summary { cursor: pointer; margin: 14px 0 6px; color: var(--brand); font-weight: 600; }
+
+  .files a { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; margin: 4px 8px 4px 0; border: 1px solid var(--line); border-radius: 9px; text-decoration: none; color: var(--ink); background: var(--bg); }
+  .files a:hover { border-color: var(--brand); color: var(--brand); }
+
+  .notice { padding: 10px 14px; border-radius: 10px; font-size: 13px; margin-top: 12px; }
+  .notice.err { background: color-mix(in srgb, var(--err) 12%, transparent); color: var(--err); border: 1px solid color-mix(in srgb, var(--err) 30%, transparent); }
+  .notice.warn { background: color-mix(in srgb, var(--warn) 14%, transparent); color: var(--warn); border: 1px solid color-mix(in srgb, var(--warn) 30%, transparent); }
+  #warnBox p { margin: 0.5em 0 0; }
+  .notice code { font-weight: 700; }
+
+  .preview-bar { display: flex; gap: 8px; margin-bottom: 12px; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
+  .seg button { border: 0; border-radius: 0; background: var(--panel); color: var(--muted); padding: 7px 14px; }
+  .seg button.on { background: var(--brand); color: #fff; }
+  iframe#preview { width: 100%; height: 460px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+
+  #noticeBar button { margin-left: 10px; font: inherit; padding: 3px 12px; border-radius: 6px; border: 1px solid var(--brand); background: transparent; color: var(--brand); cursor: pointer; }
+  #noticeBar button:disabled { opacity: .5; cursor: default; }
+  #noticeBar { padding: 10px 28px; background: var(--accent-a); color: var(--brand); font-size: 13px; border-bottom: 1px solid var(--line); }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--brand); }
+  .hidden { display: none !important; }
+  .muted { color: var(--muted); }
+  footer { text-align: center; color: var(--muted); font-size: 12px; padding: 8px 0 30px; }
+</style>
+</head>
+<body>
+<header class="app">
+  <div class="logo">L</div>
+  <div>
+    <h1>{{title}}</h1>
+    <p>{{tagline}}</p>
+  </div>
+</header>
+
+<div id="noticeBar" class="hidden"></div>
+
+<main>
+  <!-- Upload + analysis -->
+  <section class="card" id="inputCard">
+    <h2>{{input_heading}}</h2>
+    <div id="drop" tabindex="0" role="button" aria-label="{{drop_label}}">
+      <div>{{drop_text}}</div>
+      <div class="hint">{{drop_hint}}</div>
+    </div>
+    <input type="file" id="file" accept=".xml,.csv" />
+    <details id="csvOptions" class="hidden more">
+      <summary>{{csv_options}}</summary>
+      <label class="field"><span>{{csv_headers}}</span>
+        <select id="headerRows">
+          <option value="">{{csv_headers_auto}}</option>
+          <option value="1">{{csv_headers_one}}</option>
+          <option value="2">{{csv_headers_two}}</option>
+        </select>
+      </label>
+    </details>
+    <div id="errBox" role="alert"></div>
+
+    <div id="analysis" class="hidden" style="margin-top:16px">
+      <div class="row" style="justify-content:space-between">
+        <span class="muted" id="fileName"></span>
+      </div>
+      <div class="stats" id="stats"></div>
+
+      <fieldset id="identityField" style="margin-top:16px">
+        <legend>{{identity_legend}}</legend>
+        <div id="identityNotice"></div>
+        <label class="field">
+          <span>{{collection_label}}</span>
+          <input type="text" id="collectionInput" autocomplete="off" spellcheck="false" />
+        </label>
+        <label class="field">
+          <span>{{call_number_label}}</span>
+          <input type="text" id="callNumberInput" autocomplete="off" spellcheck="false" />
+        </label>
+        <label class="field">
+          <span>{{repository_label}}</span>
+          <select id="repositoryInput"></select>
+        </label>
+        <div class="hint muted" id="identityHint" style="font-size:12px"></div>
+      </fieldset>
+
+    </div>
+  </section>
+
+  <!-- Options + generate -->
+  <section class="card" id="optionsCard">
+    <h2>{{options_heading}}</h2>
+    <div id="optionsEmpty" class="muted">{{options_empty}}</div>
+
+    <div id="options" class="hidden">
+      <fieldset>
+        <legend>{{labels_legend}}</legend>
+        <label class="opt"><input type="radio" name="labels" value="both" checked /> {{labels_both}}</label>
+        <label class="opt"><input type="radio" name="labels" value="folders" /> {{labels_folders}}</label>
+        <label class="opt"><input type="radio" name="labels" value="boxes" /> {{labels_boxes}}</label>
+      </fieldset>
+
+      <fieldset>
+        <legend><label for="scope">{{scope_label}}</label></legend>
+        <select id="scope">
+          <option value="all">{{scope_all}}</option>
+          <option value="boxes">{{scope_boxes}}</option>
+        </select>
+        <div id="boxChoices" class="hidden">
+          <label class="field"><span>{{choose_boxes}}</span>
+            <input type="text" id="boxNumbers" autocomplete="off" aria-describedby="availableBoxes" />
+          </label>
+          <details><summary>{{boxes_available}}</summary><div class="choices" id="availableBoxes"></div></details>
+        </div>
+        <fieldset id="groupChoices" class="hidden">
+          <legend>{{choose_groups}}</legend><div class="choices" id="groupList"></div>
+        </fieldset>
+      </fieldset>
+
+      <fieldset id="boxTextField">
+        <legend>{{box_text_legend}}</legend>
+        <label class="opt"><input type="radio" name="boxFolderText" value="show" checked /> {{box_text_show}}</label>
+        <label class="opt"><input type="radio" name="boxFolderText" value="omit" /> {{box_text_omit}}</label>
+      </fieldset>
+
+      <fieldset id="numberingField" class="hidden">
+        <legend>{{numbering_legend}}</legend>
+        <label class="opt"><input type="radio" name="numbering" value="continuous" /> {{numbering_continuous}}</label>
+        <label class="opt"><input type="radio" name="numbering" value="non-continuous" checked /> {{numbering_noncontinuous}}</label>
+        <label class="field hidden" id="firstFolderField">
+          <span>{{first_folder}}</span><input type="number" id="firstFolder" min="1" step="1" value="1" required />
+        </label>
+      </fieldset>
+
+      <details class="more">
+      <summary>{{more_options}}</summary>
+      <fieldset id="folderLayoutField">
+        <legend>{{layout_legend}}</legend>
+        <label class="opt"><input type="radio" name="folderLayout" value="regular" checked /> {{layout_regular}}</label>
+        <label class="opt"><input type="radio" name="folderLayout" value="left" /> {{layout_left}}</label>
+      </fieldset>
+
+      <fieldset id="boxFormatField">
+        <legend>{{box_format_legend}}</legend>
+        <select id="boxFormat">
+          <option value="auto">{{box_format_auto}}</option>
+          <option value="default">{{box_format_default}}</option>
+          <option value="half-hollinger">{{box_format_half}}</option>
+          <option value="flat">{{box_format_flat}}</option>
+        </select>
+      </fieldset>
+
+      <fieldset>
+        <legend>{{formats_legend}}</legend>
+        <label class="opt"><input type="checkbox" class="fmt" value="word" checked /> {{format_word}}</label>
+        <label class="opt"><input type="checkbox" class="fmt" value="csv" checked /> {{format_csv}}</label>
+        <label class="opt"><input type="checkbox" class="fmt" value="html" /> {{format_html}}</label>
+        <label class="opt"><input type="checkbox" class="fmt" value="excel" /> {{format_excel}}</label>
+      </fieldset>
+      </details>
+
+      <div class="row">
+        <button class="primary" id="genBtn">{{generate}}</button>
+        <span id="genStatus" class="muted"></span>
+      </div>
+
+      <div id="runError" role="alert"></div>
+      <div id="warnBox" aria-live="polite"></div>
+      <div id="filesBox" class="files" style="margin-top:12px"></div>
+    </div>
+  </section>
+
+  <!-- Sample data -->
+  <section class="card span2 hidden" id="sampleCard">
+    <h2>{{sample_heading}}</h2>
+    <div style="overflow:auto"><table class="sample" id="sampleTable"></table></div>
+  </section>
+
+  <!-- Live preview -->
+  <section class="card span2 hidden" id="previewCard">
+    <h2>{{preview_heading}}</h2>
+    <div class="preview-bar">
+      <div class="seg" role="tablist">
+        <button id="sideFolder" class="on" type="button">{{preview_folder}}</button>
+        <button id="sideBox" type="button">{{preview_box}}</button>
+      </div>
+      <button class="ghost" id="refreshPreview" type="button">{{preview_refresh}}</button>
+    </div>
+    <iframe id="preview" title="{{preview_title}}"></iframe>
+  </section>
+</main>
+
+<footer>
+  <span id="appVersion"></span>
+  <span>{{footer_note}}</span>
+  <span id="feedbackWrap" class="hidden"> · <a id="feedbackLink" href="#" target="_blank" rel="noopener noreferrer">{{feedback_link}}</a></span>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  // All wording comes from content.toml: the page's own text is filled in on
+  // the server, and this table is for the text built here.
+  var T = {{TEXT}};
+  var folderError = {{FOLDER_ERROR}};
+  function say(key, vars) {
+    return T[key].replace(/\{(\w+)\}/g, function (_, name) { return vars[name]; });
+  }
+
+  var state = { revision: 0, generating: false, token: null, summary: null, source: null, file: null, upload: 0, side: "folder" };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var drop = $("drop"), fileInput = $("file");
+
+  // A newer build can install itself: the button starts the download, the bar
+  // follows its progress, and the host restarts the application when it is done.
+  function addUpdateButton() {
+    var bar = $("noticeBar"), notice = bar.textContent;
+    var button = document.createElement("button");
+    button.type = "button";
+    button.textContent = T.update_button;
+    button.addEventListener("click", function () {
+      button.disabled = true;
+      function retry(message) {
+        bar.textContent = message;
+        bar.appendChild(button);
+        button.disabled = false;
+      }
+      function readStatus(response) {
+        if (!response.ok) throw new Error();
+        return response.json();
+      }
+      function follow(status) {
+        bar.textContent = status.message || notice;
+        if (status.state === "error") { retry(bar.textContent); return; }
+        if (status.state === "restarting") return;
+        setTimeout(function () {
+          fetch("/api/update").then(readStatus).then(follow).catch(function () { retry(T.update_retry); });
+        }, 1000);
+      }
+      fetch("/api/update", { method: "POST" }).then(readStatus).then(follow)
+        .catch(function () { retry(T.update_retry); });
+    });
+    bar.appendChild(button);
+  }
+
+  // While the page is open it checks in, so a host with no window of its own can
+  // tell when the page has been closed.
+  setInterval(function () { fetch("/health").catch(function () {}); }, 30000);
+
+  drop.addEventListener("click", function () { fileInput.click(); });
+  drop.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); } });
+  ["dragenter", "dragover"].forEach(function (ev) {
+    drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add("drag"); });
+  });
+  ["dragleave", "drop"].forEach(function (ev) {
+    drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove("drag"); });
+  });
+  drop.addEventListener("drop", function (e) {
+    var item = e.dataTransfer.items && e.dataTransfer.items[0];
+    var entry = item && item.webkitGetAsEntry && item.webkitGetAsEntry();
+    if (entry && entry.isDirectory) { analyze(null); return; }
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) analyze(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener("change", function () {
+    if (fileInput.files[0]) analyze(fileInput.files[0]);
+    fileInput.value = "";
+  });
+
+  function showError(box, err) {
+    var heading = err.heading || (err.code ? "[" + err.code + "]" : "");
+    box.innerHTML = '<div class="notice err">' + (heading ? '<strong>' + esc(heading) + '</strong><br>' : '') +
+      esc(err.message) + (err.fix ? '<p>' + esc(err.fix) + '</p>' : '') + '</div>';
+    if (box === $("runError") && err.code === "301") {
+      var settings = document.createElement("button");
+      settings.textContent = T.change_settings;
+      settings.onclick = function () { document.querySelector('input[name="labels"]:checked').focus(); };
+      box.appendChild(settings);
+    }
+    if (box === $("errBox") || err.code === "301" || err.expired) {
+      var choose = document.createElement("button");
+      choose.textContent = T.choose_file;
+      choose.onclick = function () { fileInput.click(); };
+      box.appendChild(choose);
+    }
+  }
+  function responseError(res, fallback) {
+    if (res.j.error) return res.j.error;
+    if (res.status === 404 && typeof res.j.detail === "string") return { message: res.j.detail, expired: true };
+    return fallback;
+  }
+  function clear(box) { box.innerHTML = ""; }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]; }); }
+
+  $("headerRows").addEventListener("change", function () { analyze(state.file, true); });
+  function analyze(file, reread) {
+    var upload = ++state.upload;
+    state.file = file;
+    if (!reread) {
+      $("headerRows").value = "";
+      $("csvOptions").open = false;
+    }
+    $("csvOptions").classList.toggle("hidden", !file || !/\.csv$/i.test(file.name));
+    clearTimeout(typingTimer);
+    state.generating = false;
+    state.token = state.summary = state.source = null;
+    ["analysis", "options", "previewCard", "sampleCard"].forEach(function (id) { $(id).classList.add("hidden"); });
+    ["errBox", "runError", "warnBox", "filesBox"].forEach(function (id) { clear($(id)); });
+    $("optionsEmpty").classList.remove("hidden");
+    $("genBtn").disabled = false;
+    $("genStatus").textContent = "";
+    if (!file) {
+      drop.classList.remove("drag");
+      showError($("errBox"), folderError);
+      return;
+    }
+    var fd = new FormData();
+    fd.append("file", file);
+    if ($("headerRows").value) fd.append("header_rows", $("headerRows").value);
+    drop.classList.add("drag");
+    fetch("/api/analyze", { method: "POST", body: fd })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (upload !== state.upload) return;
+        drop.classList.remove("drag");
+        if (!res.ok || res.j.error) { showError($("errBox"), res.j.error || { message: T.analyze_failed, fix: T.analyze_failed_fix }); return; }
+        state.token = res.j.token; state.summary = state.source = res.j.summary;
+        renderAnalysis(res.j, file.name);
+      })
+      .catch(function () {
+        if (upload !== state.upload) return;
+        drop.classList.remove("drag");
+        showError($("errBox"), { message: T.network_failed, fix: T.network_failed_fix });
+      });
+  }
+
+  function renderAnalysis(data, name) {
+    var s = data.summary;
+    $("analysis").classList.remove("hidden");
+    $("options").classList.remove("hidden");
+    $("optionsEmpty").classList.add("hidden");
+    $("fileName").textContent = name;
+
+    $("stats").innerHTML = stat(s.folder_count, T.stat_folders) + stat(s.box_count, T.stat_boxes);
+
+    renderIdentityFields(s);
+
+    document.querySelectorAll('#options input[type="radio"], #options .fmt').forEach(function (input) {
+      input.checked = input.defaultChecked;
+    });
+    $("boxFormat").selectedIndex = 0;
+    document.querySelector('input[name="numbering"][value="' + s.default_numbering + '"]').checked = true;
+
+    document.querySelector('input[name="labels"][value="both"]').checked = true;
+    $("firstFolder").value = "1";
+    $("boxNumbers").value = "";
+    $("availableBoxes").textContent = s.box_choices.join(", ");
+    $("scope").value = "all";
+    $("scope").length = 2;
+    if (s.aggregate_choices.length) $("scope").add(new Option(T.scope_aggregates, "aggregates"));
+    $("groupList").innerHTML = s.aggregate_choices.map(function (title, index) {
+      var number = index + 1;
+      return '<label class="opt"><input type="checkbox" value="' + number + '" /> ' +
+        number + '. ' + esc(title || T.outside_group) + '</label>';
+    }).join("");
+    state.side = "folder";
+
+    // Sample rows, shown whenever folders were derived (extent-inferred included)
+    if (s.folder_count > 0 && data.sample_folders && data.sample_folders.length) {
+      $("sampleCard").classList.remove("hidden");
+      var cols = Object.keys(T.sample_columns);
+      var html = "<thead><tr>" + cols.map(function (c) { return "<th>" + esc(T.sample_columns[c]) + "</th>"; }).join("") + "</tr></thead><tbody>";
+      data.sample_folders.forEach(function (r) {
+        html += "<tr>" + cols.map(function (c) { return "<td>" + esc(r[c]) + "</td>"; }).join("") + "</tr>";
+      });
+      $("sampleTable").innerHTML = html + "</tbody>";
+    } else {
+      $("sampleCard").classList.add("hidden");
+    }
+
+    $("previewCard").classList.remove("hidden");
+    syncFolderControls();
+  }
+
+  function stat(n, l) { return '<div class="stat"><div class="n">' + esc(n) + '</div><div class="l">' + esc(l) + '</div></div>'; }
+
+  // Populate the repository choices when the file leaves the repository open.
+  function fillRepositories(list) {
+    $("repositoryInput").innerHTML = '<option value="">' + esc(T.repository_choose) + "</option>" +
+      list.map(function (r) { return '<option value="' + esc(r.code) + '">' + esc(r.name) + "</option>"; }).join("");
+    if (state.summary) renderRepository(state.summary);
+  }
+
+  function renderRepository(s) {
+    var select = $("repositoryInput");
+    var label = state.source.repository_provenance === "declared"
+      ? say("repository_from_file", { name: state.source.repository }) : T.repository_choose;
+    if (!select.options.length) select.add(new Option(label, ""));
+    select.options[0].textContent = label;
+    select.value = s.repository_provenance === "supplied" ? s.repository_code : "";
+  }
+  function renderIdentityFields(s) {
+    renderRepository(s);
+    // An "absent" value is only a stand-in for the label, so leave the field empty.
+    $("collectionInput").value = s.collection_provenance === "absent" ? "" : s.collection;
+    $("callNumberInput").value = s.call_number_provenance === "absent" ? "" : s.call_number;
+    renderIdentityNotice(s);
+  }
+
+  function renderIdentityNotice(s) {
+    if (s.identity_missing) {
+      var missing = T.identity_missing;
+      if (s.collection_provenance !== "absent") missing = T.call_number_missing;
+      if (s.call_number_provenance !== "absent") missing = T.collection_missing;
+      $("identityNotice").innerHTML = '<div class="notice warn">' + esc(missing) + "</div>";
+      $("identityHint").textContent = T.identity_edit_hint;
+    } else {
+      $("identityNotice").innerHTML = "";
+      $("identityHint").textContent =
+        (s.collection_provenance === "supplied" || s.call_number_provenance === "supplied")
+          ? T.identity_supplied_hint
+          : T.identity_declared_hint;
+    }
+  }
+
+  function fieldOverride(id, key) {
+    var value = $(id).value.trim();
+    var source = state.source;
+    return source[key + "_provenance"] === "declared" && value === source[key] ? "" : value;
+  }
+
+  function identityValues() {
+    return {
+      collection: fieldOverride("collectionInput", "collection"),
+      call_number: fieldOverride("callNumberInput", "call_number"),
+      repository: $("repositoryInput").value
+    };
+  }
+
+  function submitIdentity() {
+    if (!state.token) return;
+    var body = identityValues();
+    body.token = state.token;
+    function stillCurrent() {
+      if (body.token !== state.token) return false;
+      var current = identityValues();
+      return body.collection === current.collection && body.call_number === current.call_number &&
+             body.repository === current.repository;
+    }
+    invalidateResults();
+    clear($("errBox"));
+    refreshPreview();
+    fetch("/api/identity", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, j: j }; }); })
+      .then(function (res) {
+        if (!stillCurrent()) return;
+        if (!res.ok || res.j.error) {
+          showError($("errBox"), responseError(res, { message: T.identity_failed, fix: T.identity_failed_fix }));
+          return;
+        }
+        state.summary = res.j.summary;
+        renderIdentityFields(res.j.summary);
+      })
+      .catch(function () {
+        if (stillCurrent()) showError($("errBox"), { message: T.network_failed, fix: T.network_failed_fix });
+      });
+  }
+
+  $("collectionInput").addEventListener("change", submitIdentity);
+  $("callNumberInput").addEventListener("change", submitIdentity);
+  $("repositoryInput").addEventListener("change", submitIdentity);
+  $("identityField").addEventListener("input", invalidateResults);
+
+  function selectedFormats() {
+    return Array.prototype.slice.call(document.querySelectorAll(".fmt:checked")).map(function (c) { return c.value; });
+  }
+  function selectedNumbering() {
+    var r = document.querySelector('input[name="numbering"]:checked');
+    return r ? r.value : "non-continuous";
+  }
+  function selectionOptions() {
+    var scope = $("scope").value;
+    var choices = "";
+    if (scope === "boxes") choices = $("boxNumbers").value.trim();
+    if (scope === "aggregates") {
+      choices = Array.from($("groupList").querySelectorAll("input:checked"), function (input) { return input.value; }).join(",");
+    }
+    return {
+      labels: document.querySelector('input[name="labels"]:checked').value,
+      scope: scope,
+      choices: choices,
+      first_folder: $("firstFolderField").classList.contains("hidden") ? 1 : $("firstFolder").valueAsNumber,
+      numbering: selectedNumbering(),
+      folder_layout: selectedFolderLayout(),
+      box_format: selectedBoxFormat(),
+      box_folder_text: selectedBoxFolderText()
+    };
+  }
+  function selectedFolderLayout() {
+    var r = document.querySelector('input[name="folderLayout"]:checked');
+    return r ? r.value : "regular";
+  }
+  function selectedBoxFormat() {
+    return $("boxFormat") ? $("boxFormat").value : "auto";
+  }
+  function selectedBoxFolderText() {
+    var r = document.querySelector('input[name="boxFolderText"]:checked');
+    return r ? r.value : "show";
+  }
+
+  function syncFolderControls() {
+    if (!state.summary) return;
+    var options = selectionOptions();
+    var folders = options.labels !== "boxes";
+    var boxes = options.labels !== "folders";
+    var numberFolders = state.summary.numbering_required && (folders || options.box_folder_text === "show");
+    $("numberingField").classList.toggle("hidden", !numberFolders);
+    $("firstFolderField").classList.toggle("hidden", !numberFolders || options.numbering !== "continuous" || state.summary.stated_folders > 0);
+    $("folderLayoutField").classList.toggle("hidden", !folders);
+    $("boxFormatField").classList.toggle("hidden", !boxes);
+    $("boxTextField").classList.toggle("hidden", !boxes);
+    $("boxChoices").classList.toggle("hidden", options.scope !== "boxes");
+    $("groupChoices").classList.toggle("hidden", options.scope !== "aggregates");
+    $("sampleCard").classList.toggle("hidden", !folders || options.scope !== "all" || !state.summary.folder_count);
+    $("sideFolder").disabled = !folders;
+    $("sideBox").disabled = !boxes;
+    if (!folders) state.side = "box";
+    if (!boxes) state.side = "folder";
+    $("sideFolder").classList.toggle("on", state.side === "folder");
+    $("sideBox").classList.toggle("on", state.side === "box");
+    refreshPreview();
+  }
+
+  $("genBtn").addEventListener("click", function () {
+    var token = state.token;
+    if (!token) return;
+    clearTimeout(typingTimer);
+    clear($("warnBox")); clear($("runError")); $("filesBox").innerHTML = "";
+    var formats = selectedFormats();
+    if (!formats.length) { showError($("runError"), { message: T.pick_a_format, fix: T.pick_a_format_fix }); return; }
+    var revision = state.revision;
+    state.generating = true;
+    $("genStatus").textContent = T.generating;
+    $("genBtn").disabled = true;
+    fetch("/api/generate", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Object.assign(identityValues(), selectionOptions(), {
+        token: token,
+        formats: formats
+      }))
+    })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, j: j }; }); })
+      .then(function (res) {
+        if (token !== state.token || revision !== state.revision) return;
+        state.generating = false;
+        $("genBtn").disabled = false; $("genStatus").textContent = "";
+        if (!res.ok || res.j.error) { showError($("runError"), responseError(res, { message: T.generate_failed, fix: T.generate_failed_fix })); return; }
+        var files = res.j.files || [];
+        var zipName = res.j.zip_name;
+        var html = '<a href="' + esc(res.j.zip_url) + '" download="' + esc(zipName) + '">' + esc(say("download_all", { name: zipName })) + '</a>';
+        files.forEach(function (f) { html += '<a href="' + esc(f.url) + '" download="' + esc(f.name) + '">' + esc(f.name) + "</a>"; });
+        $("filesBox").innerHTML = html;
+        $("warnBox").innerHTML = (res.j.warnings || []).map(function (note) {
+          var paragraphs = [note.message, note.fix].join("\n\n").split("\n\n");
+          return '<div class="notice warn"><strong>' + esc(note.heading) + '</strong>' +
+            paragraphs.map(function (text) { return '<p>' + esc(text) + '</p>'; }).join("") + '</div>';
+        }).join("");
+        refreshPreview();
+      })
+      .catch(function () {
+        if (token !== state.token || revision !== state.revision) return;
+        state.generating = false;
+        $("genBtn").disabled = false;
+        $("genStatus").textContent = "";
+        showError($("runError"), { message: T.network_failed, fix: T.network_failed_fix });
+      });
+  });
+
+  function refreshPreview() {
+    if (!state.token) return;
+    var options = selectionOptions();
+    var ready = (options.scope === "all" || options.choices !== "") &&
+      ($("firstFolderField").classList.contains("hidden") || $("firstFolder").checkValidity());
+    $("genBtn").disabled = !ready || state.generating;
+    $("previewCard").classList.toggle("hidden", !ready);
+    if (ready) {
+      var qs = new URLSearchParams(Object.assign({token: state.token, side: state.side}, identityValues(), options));
+      $("preview").src = "/api/preview?" + qs;
+    }
+  }
+
+  $("sideFolder").addEventListener("click", function () { state.side = "folder"; syncFolderControls(); });
+  $("sideBox").addEventListener("click", function () { state.side = "box"; syncFolderControls(); });
+  $("refreshPreview").addEventListener("click", refreshPreview);
+  function invalidateResults() {
+    state.revision++;
+    state.generating = false;
+    ["runError", "warnBox", "filesBox", "genStatus"].forEach(function (id) { clear($(id)); });
+  }
+  function settingsChanged() {
+    clearTimeout(typingTimer);
+    invalidateResults();
+    syncFolderControls();
+  }
+  $("options").addEventListener("change", settingsChanged);
+  var typingTimer;
+  ["boxNumbers", "firstFolder"].forEach(function (id) {
+    $(id).addEventListener("input", function () {
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(settingsChanged, 200);
+    });
+  });
+
+  // Optional extras from whatever hosts the interface: a feedback link, and a
+  // one-line notice such as a newer build being available.
+  fetch("/api/config")
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (cfg) {
+      if (!cfg) return;
+      $("appVersion").textContent = say("app_version", { version: cfg.version }) + " · ";
+      if (cfg.feedback_url) {
+        $("feedbackLink").href = cfg.feedback_url;
+        $("feedbackWrap").classList.remove("hidden");
+      }
+      fillRepositories(cfg.repositories || []);
+      if (cfg.notice) {
+        $("noticeBar").textContent = cfg.notice;
+        if (cfg.update) addUpdateButton();
+        $("noticeBar").classList.remove("hidden");
+      }
+      if (cfg.confirm_open) return fetch("/api/update/opened", { method: "POST" });
+    })
+    .catch(function () { /* the interface works without these extras */ });
+})();
+</script>
+</body>
+</html>

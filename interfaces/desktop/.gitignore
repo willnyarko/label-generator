@@ -1,0 +1,18 @@
+# Build / env
+.venv/
+*.egg-info/
+build/
+dist/
+
+# Assembly cache: interpreter distributions and their unpacked copies
+packaging/.cache/
+
+# Caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+uv.lock
+.DS_Store

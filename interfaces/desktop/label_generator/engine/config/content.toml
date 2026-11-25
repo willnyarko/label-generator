@@ -1,0 +1,142 @@
+# Label text and review notes. Fields in braces are supplied by the label engine.
+
+[notice]
+error = "Error"
+note = "Note"
+heading = "{kind} {number} — {title}"
+
+[notices.not-a-file]
+number = 101
+kind = "error"
+title = "File not found"
+text = "No file was found at {path}. Choose the file again."
+fix = ""
+[notices.not-a-file.folder]
+text = "You selected a folder. Choose the EAD XML or bulk import CSV file inside it."
+
+[notices.wrong-file-type]
+number = 102
+kind = "error"
+title = "Unsupported file type"
+text = "Choose an ArchivesSpace EAD export (.xml) or a bulk import spreadsheet saved as CSV (.csv)."
+fix = ""
+[notices.wrong-file-type.excel]
+fix = "In Excel, save the bulk import sheet as CSV, then choose that file."
+
+[notices.cannot-open]
+number = 103
+kind = "error"
+title = "File could not be opened"
+text = "The generator could not open {path}."
+fix = "{reason}"
+
+[notices.empty-file]
+number = 104
+kind = "error"
+title = "Empty file"
+text = "{path} is empty. Choose a copy that contains data, or export the file again."
+fix = ""
+
+[notices.unreadable-ead]
+number = 201
+kind = "error"
+title = "XML could not be read as EAD"
+text = "The generator could not read {name} as EAD. {reason}"
+fix = "Choose an EAD2002 or EAD3 finding-aid export from ArchivesSpace."
+[notices.unreadable-ead.export_again]
+fix = "Export the finding aid again from ArchivesSpace as EAD2002 or EAD3."
+
+[notices.not-bulk-import]
+number = 202
+kind = "error"
+title = "No recognized label columns"
+text = "The generator couldn't find a column it needs for labeling in {name}."
+fix = "Use a field code or column name from either supported spreadsheet. One header row is enough."
+
+[notices.replaced-characters]
+number = 203
+kind = "note"
+title = "Characters replaced while reading the EAD"
+text = "To read this export, the generator replaced {count} {character_word} with ? in a temporary copy. The {location}."
+fix = """If the label text reads as expected, this note needs no action. If an unexpected ? appears on a label, you can edit that Word label before printing. To correct future runs, check the corresponding text in ArchivesSpace, correct it as needed, and export again.
+
+Character codes: {characters}."""
+
+[notices.nothing-to-label]
+number = 301
+kind = "error"
+title = "Nothing to label"
+text = "The generator found no components to label in {name}."
+fix = "Check that the finding aid export includes the components you want to label."
+[notices.nothing-to-label.csv]
+fix = "Choose a CSV with component rows, or add the rows you want to label and save the file again."
+[notices.nothing-to-label.no_box]
+text = "The selected material has no source-supplied box number for a box label."
+fix = "Change the label type or selection, or choose a file that supplies box numbers."
+[notices.nothing-to-label.selection]
+text = "The selection contains no material for the requested labels."
+fix = "Change the selection or choose a different file."
+
+[notices.missing-box]
+number = 302
+kind = "note"
+title = "Placeholder box number"
+text = "The generator used {sentinel} as a placeholder on at least one label. Before printing, search the generated Word labels for {sentinel}."
+fix = """If no physical box is expected, skip any labels you don’t need. You can remove the placeholder from any label you plan to use.
+
+If you know the correct box number, you can enter it directly on the Word labels for this print run. To carry the correction into future runs, update the box number in ArchivesSpace or the bulk import spreadsheet and generate the labels again."""
+
+[notices.missing-identity]
+number = 303
+kind = "note"
+title = "Collection name and call number unavailable"
+text = "The labels show “Collection unavailable” for the collection name and “Call number unavailable” for the call number."
+fix = "If you know these values, use Find and Replace in each Word label file you plan to print. To include them in both the Word labels and the CSV rows, enter them under Collection and repository and choose Make labels again."
+[notices.missing-identity.collection]
+title = "Collection name unavailable"
+text = "The labels show “Collection unavailable” where the collection name would appear."
+fix = "If you know the collection name, use Find and Replace in each Word label file you plan to print. To include it in both the Word labels and the CSV rows, edit the corresponding field under Collection and repository and choose Make labels again."
+[notices.missing-identity.call_number]
+title = "Call number unavailable"
+text = "The labels show “Call number unavailable” where the call number would appear."
+fix = "If you know the call number, use Find and Replace in each Word label file you plan to print. To include it in both the Word labels and the CSV rows, edit the corresponding field under Collection and repository and choose Make labels again."
+
+[notices.no-repository]
+number = 304
+kind = "note"
+title = "Repository name unavailable"
+text = "The box labels show “Repository unavailable” where the repository name would appear."
+fix = "If you know the repository name, use Find and Replace in each Word box-label file you plan to print. To include the name in both the box labels and the box CSV, choose the repository under Collection and repository and select Make labels again."
+
+[replacement]
+singular = "character"
+plural = "characters"
+one_line = "{subject} on line {lines} of the export"
+multiple_lines = "{subject} on lines {lines} of the export"
+one_subject = "character occurs"
+many_subject = "characters occur"
+
+[ead_reason]
+not_ead = "The document root on line {line} is not EAD."
+malformed = "The XML is malformed ({detail})."
+namespace = "The root element on line {line} does not identify itself as EAD2002 or EAD3."
+no_archdesc = "The collection description (archdesc) is missing."
+
+[labels]
+collection_unavailable = "Collection unavailable"
+call_number_unavailable = "Call number unavailable"
+repository_unavailable = "Repository unavailable"
+component_title_unavailable = "Title unavailable"
+date_unavailable = "Date unavailable"
+box_heading = "Box {box}"
+box_and_folder = "Box {box}  Folder {folder}"
+folder_range = "Folders {first}–{last}"
+folder_single = "Folder {first}"
+series = "Series {number}"
+folder_part = "{title} [{number} of {total}]"
+folder_count_one = "{count} folder"
+folder_count_many = "{count} folders"
+
+[selection]
+boxes_invalid = "Choose box numbers from the list, such as 3, 7-9."
+aggregates_invalid = "Choose numbers from 1 to {count}, such as 2 or 3, 5-7."

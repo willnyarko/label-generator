@@ -1,0 +1,114 @@
+# Text for the desktop window and its local service.
+
+# The page (service/static/index.html) takes {{key}} from here for its fixed text,
+# and its script reads the same table as T.key for text it builds itself. A
+# {name} inside a string is filled in by the script (say("key", {name: ...})).
+
+[interface]
+title = "Label Generator"
+tagline = "Folder and box labels from an ArchivesSpace EAD export or a bulk import spreadsheet"
+
+# Step 1: choose a file
+input_heading = "1 · Choose your file"
+drop_label = "Choose an EAD or CSV file"
+drop_text = "Drop a file here, or click to choose one"
+drop_hint = "An EAD (.xml) exported from ArchivesSpace, or a bulk import spreadsheet (.csv), Yale's own or ArchivesSpace's."
+csv_options = "CSV reading options"
+csv_headers = "Header rows before the first component"
+csv_headers_auto = "Detect automatically"
+csv_headers_one = "1 header row"
+csv_headers_two = "2 header rows"
+identity_legend = "Collection and repository"
+collection_label = "Collection name"
+call_number_label = "Call number"
+repository_label = "Repository"
+repository_choose = "Choose a repository"
+repository_from_file = "{name} (from file)"
+
+# Step 2: options
+options_heading = "2 · Make your labels"
+options_empty = "Choose a file first."
+labels_legend = "Which labels do you need?"
+labels_both = "Folder and box labels"
+labels_folders = "Folder labels only"
+labels_boxes = "Box labels only"
+scope_label = "What are the labels for?"
+scope_all = "The whole collection"
+scope_boxes = "Chosen boxes"
+scope_aggregates = "Chosen top-level groups (such as series)"
+choose_boxes = "Enter box numbers or ranges, such as 3, 7-9"
+boxes_available = "Boxes in shelf order"
+choose_groups = "Choose one or more groups"
+outside_group = "Folders outside any aggregate"
+first_folder = "Starting folder number for the whole collection"
+numbering_legend = "How are the folders numbered?"
+numbering_continuous = "One count through the whole collection (box labels show a range, such as Folders 12–27)"
+numbering_noncontinuous = "Starting again at 1 in each box (box labels show a folder count)"
+layout_legend = "Folder label layout"
+layout_regular = "Left and right labels, 10 per sheet"
+layout_left = "Left labels only, 20 per sheet"
+box_format_legend = "Box label size"
+box_format_auto = "Chosen for each box from its container type"
+box_format_default = "Standard box (full Hollinger, Paige): Avery 5164"
+box_format_half = "Half Hollinger box: Avery 5163, text turned sideways"
+box_format_flat = "Tall flat box: Avery 5163, horizontal text"
+box_text_legend = "Folder text on box labels"
+box_text_show = "Show the folder range or count"
+box_text_omit = "Leave it off"
+formats_legend = "File types"
+format_word = "Word (.docx)"
+format_csv = "CSV rows (.csv)"
+format_html = "HTML"
+format_excel = "Excel"
+more_options = "More options: label layout, box size, file types"
+generate = "Make labels"
+generating = "Making labels…"
+download_all = "Download all ({name})"
+
+# What the page shows once a file is read
+stat_folders = "Folders"
+stat_boxes = "Boxes"
+sample_heading = "Sample folders with default numbering"
+# The preview table: each label field the engine reports, then the heading shown above it.
+sample_columns = { "BOX" = "Box", "FOLDER" = "Folder", "C01_ANCESTOR" = "Series", "FOLDER TITLE" = "Title", "FOLDER DATES" = "Dates" }
+identity_missing = "This file gives neither the collection name nor the call number. Enter either value if you know it."
+collection_missing = "This file gives no collection name. Enter it if you know it."
+call_number_missing = "This file gives no call number. Enter it if you know it."
+identity_edit_hint = "Edit a field, then click away from it."
+identity_supplied_hint = "Your edits will appear on the labels."
+identity_declared_hint = "Read from your file. Edit a field to correct it for this run."
+
+# Preview
+preview_heading = "Preview"
+preview_title = "Label preview"
+preview_folder = "Folder labels"
+preview_box = "Box labels"
+preview_refresh = "Refresh"
+
+# Footer
+app_version = "Label Generator {version}"
+footer_note = "Uploaded and generated files are temporary."
+feedback_link = "Report a problem"
+update_button = "Install and restart"
+update_retry = "The app lost contact while checking the update. You can try again."
+choose_file = "Choose a file"
+change_settings = "Change settings"
+
+# Things that go wrong in the page itself
+pick_a_format = "Tick at least one format."
+pick_a_format_fix = "Choose Word, CSV, HTML or Excel."
+analyze_failed = "Couldn't read that file."
+analyze_failed_fix = "Try another file."
+identity_failed = "Couldn't apply the collection name and call number."
+identity_failed_fix = "Try again."
+generate_failed = "Couldn't make the labels."
+generate_failed_fix = "Check the options and try again."
+network_failed = "The page lost contact with the program."
+network_failed_fix = "Check that it is still running."
+
+# What the service says when something it didn't expect goes wrong.
+
+[service]
+unexpected_fix = "Check the input file, then try again."
+session_gone = "That session has expired. Upload the file again."
+file_missing = "That file isn't there any more. Make the labels again."

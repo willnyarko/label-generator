@@ -1,0 +1,78 @@
+# What the engine says: the words printed on a label when the source has nothing,
+# and how a problem with a file reads. Code asks for a key
+# (say("validation.empty_file.message", path=...)) and fills the {placeholders};
+# it never holds sentences of its own. Each surface keeps the rest of its wording
+# in its own config/content.toml.
+#
+# Keep the voice plain: what happened, then what to do about it. A literal brace
+# in a string has to be doubled ({{ or }}).
+
+# --- How a finding reads when printed -------------------------------------------
+
+[finding]
+text = "[{code}] {message}\nWhat to do: {fix}"
+
+# --- Stand-ins printed on a label when the source has nothing ----------------------
+# These are label content, not messages: they appear on the printed sheet.
+
+[labels]
+collection_unavailable = "Collection unavailable"
+call_number_unavailable = "Call number unavailable"
+repository_unavailable = "Repository unavailable"
+component_title_unavailable = "Title unavailable"
+date_unavailable = "Date unavailable"
+box_heading = "Box {box}"
+box_and_folder = "Box {box}  Folder {folder}"
+folder_range = "Folders {first}–{last}"
+folder_single = "Folder {first}"
+series = "Series {number}"
+folder_part = "{title} [{number} of {total}]"
+folder_count_one = "{count} folder"
+folder_count_many = "{count} folders"
+folder_sheet_title = "Folder labels"
+box_sheet_title = "Box labels"
+
+# --- Validation ---------------------------------------------------------------
+# One table per problem. `code` is what staff quote when they ask for help, so a
+# code never changes meaning and is never reused.
+
+[validation.not_a_file]
+code = "VAL-PRE-001"
+message = "There is no file at {path}."
+fix = "Check the path. It has to be one .xml or .csv file, not a folder."
+
+[validation.unsupported_type]
+code = "VAL-PRE-002"
+message = "{name} is not an .xml or .csv file."
+fix = "Use an EAD export (.xml) from ArchivesSpace or a bulk import spreadsheet (.csv)."
+
+[validation.unreadable]
+code = "VAL-PRE-003"
+message = "Can't open {path}: {reason}."
+fix = "Check the file's permissions, and close it if it's open in Excel or another program."
+
+[validation.too_large]
+code = "VAL-PRE-004"
+message = "That file is over the {limit_mb} MB upload limit."
+fix = "Choose a smaller export."
+
+[validation.empty_file]
+code = "VAL-PRE-005"
+message = "{path} is empty."
+fix = "Export it again. The file has nothing in it."
+
+[validation.ead_unreadable]
+code = "VAL-STR-001"
+message = "Can't read {name} as EAD: {reason}."
+fix = "Export EAD2002 or EAD3 from ArchivesSpace again."
+
+[validation.no_rows]
+code = "VAL-SEM-001"
+message = "Nothing to label: no box or folder rows came out of this file."
+fix = "Check that the file-level components have box containers."
+
+[ead_reason]
+not_ead = "it is XML but not EAD"
+malformed = "the XML is malformed ({detail})"
+namespace = "it is not EAD2002 or EAD3"
+no_archdesc = "it has no archdesc element"

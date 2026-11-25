@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "label-generator-desktop"
+version = "2.0.3"
+description = "Desktop application for the Yale Special Collections label generator"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "lxml>=4.9",
+    "openpyxl>=3.1",
+    "python-docx>=1.1",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "python-multipart>=0.0.9",
+]
+
+[project.optional-dependencies]
+# The native window. Kept optional so that the application can be installed,
+# tested and run headless (with --browser) on machines without a GUI toolkit.
+window = [
+    "pywebview>=5.0",
+]
+# Assembling an installable application needs `uv` on PATH, not a Python
+# dependency. See packaging/assemble.py.
+dev = [
+    "pytest>=7.4",
+    "httpx2>=2.9",
+]
+
+[project.scripts]
+label-generator-desktop = "label_generator_desktop.recovery:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["label_generator*", "label_generator_desktop*"]
+
+[tool.setuptools.package-data]
+"label_generator" = ["config/*"]
+"label_generator.engine" = ["config/*"]
+"label_generator.service" = ["static/*", "config/*"]
+"label_generator_desktop" = ["config/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

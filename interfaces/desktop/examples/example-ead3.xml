@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ead xmlns="http://ead3.archivists.org/schema/">
+  <archdesc level="collection">
+    <did>
+      <unittitle>Example papers</unittitle>
+      <unitid>MS 12</unitid>
+      <repository><corpname><part>Example Archives</part></corpname></repository>
+    </did>
+    <dsc>
+      <c level="file"><did>
+        <unittitle>Correspondence</unittitle>
+        <container localtype="box">7</container>
+        <container localtype="folder">10</container>
+      </did></c>
+      <c level="file"><did>
+        <unittitle>Photographs</unittitle>
+        <container localtype="box">7</container>
+        <container localtype="folder">11</container>
+      </did></c>
+      <c level="file"><did>
+        <unittitle>Sketches</unittitle>
+        <container localtype="box">8</container>
+        <container localtype="folder">12</container>
+      </did></c>
+    </dsc>
+  </archdesc>
+</ead>

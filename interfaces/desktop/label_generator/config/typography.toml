@@ -1,0 +1,4 @@
+# Preview padding and cut guides. Print sizes are configured in engine/config/typography.toml.
+[proof]
+label_padding_in = 0.06
+cut_guide = "1px dashed #ccc"
