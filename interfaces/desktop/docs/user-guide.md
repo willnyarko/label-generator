@@ -2,7 +2,7 @@
 
 ## Open the app
 
-Extract the package for your computer into a folder you can keep. On Windows x64, open **Label Generator.bat** inside the **Label Generator** folder. On an Intel or Apple silicon Mac, open **Label Generator.app**. On Linux x64 or ARM64, run **label-generator** from the extracted **Label Generator** folder. Use the same launcher or a shortcut to it each time.
+Extract the package for your computer into a folder you can keep. In the Windows staff ZIP, extract both folders and open **label-generator-desktop.exe** inside **desktop**. Keep using that executable after an update. On an Intel or Apple silicon Mac, open **Label Generator.app**. On Linux x64 or ARM64, run **label-generator** from the extracted **Label Generator** folder. Use the same launcher or a shortcut to it each time.
 
 Your collection files are processed on your computer. If the native window cannot open, the app opens the same controls in your default browser.
 

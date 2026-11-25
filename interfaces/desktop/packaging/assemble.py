@@ -220,7 +220,7 @@ UNUSED_PACKAGES = {"pip", "setuptools", "pkg_resources", "wheel", "PyObjCTest"}
 #: Parts of the interpreter the application never loads: the Tk toolkit and the
 #: programs built on it, the bootstrap for pip, and the C headers.
 UNUSED_RUNTIME = (
-    "include", "tcl", "lib/tcl*", "lib/tk*", "lib/itcl*", "lib/thread*", "lib/libtcl*",
+    "include", "tcl", "lib/tcl*", "lib/tk*", "lib/itcl*", "lib/thread[0-9]*", "lib/libtcl*",
     "lib/libtk*", "DLLs/_tkinter.pyd", "DLLs/tcl*.dll", "DLLs/tk*.dll",
     *(f"{stdlib}/{name}" for stdlib in ("Lib", f"lib/python{SERIES}")
       for name in ("idlelib", "tkinter", "turtledemo", "ensurepip", "lib-dynload/_tkinter*")),

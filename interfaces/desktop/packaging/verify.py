@@ -84,6 +84,7 @@ def structural(payload: Path, target: str, operating_system: str) -> None:
     interpreter, site_packages = locate(payload, operating_system)
 
     check(interpreter.exists(), f"interpreter present at {interpreter.name}")
+    check((site_packages.parent / "threading.py").is_file(), "interpreter includes its threading module")
     check((site_packages / "label_generator").is_dir(), "label-making code installed")
     check((site_packages / "label_generator_desktop").is_dir(), "desktop window code installed")
     interface = site_packages / "label_generator" / "service" / "static" / "index.html"

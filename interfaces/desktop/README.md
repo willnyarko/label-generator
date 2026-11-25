@@ -24,3 +24,11 @@ The `label_generator` package contains the label engine, file writers, and windo
 From this directory, run `python3 packaging/assemble.py --target macos-arm64 --zip` for an Apple silicon build. Other targets are `macos-x64`, `windows-x64`, `linux-x64`, and `linux-arm64`. The assembler uses uv to bundle Python and the app dependencies. For example, check the Apple silicon package on an Apple silicon Mac with `python3 packaging/verify.py --payload dist/staging-macos-arm64 --target macos-arm64 --live`.
 
 For installations that should receive updates, give the assembler `--update-url` followed by the full URL or path to the staff-accessible `latest.json`. With `--zip` the assembler writes the manifest and platform ZIP together. For the next version, set the version in `pyproject.toml` and both package initializers, then assemble the target ZIPs into the same output directory. Make the ZIPs available beside the manifest before replacing the manifest at the configured location.
+
+For the Windows staff executable, assemble the Windows x64 update ZIP first. From its output directory, run Windows Python 3.12 with PyInstaller:
+
+```powershell
+python -m PyInstaller --onefile --windowed --name label-generator-desktop --add-data "label-generator-windows-x64.zip;." PATH_TO_DESKTOP/packaging/windows_launcher.py
+```
+
+Distribute `dist/label-generator-desktop.exe`. The executable unpacks its bundled runtime into the user's local app data on first use. It checks the configured update address or the `LABEL_GENERATOR_UPDATE_URL` environment setting. By default it looks for `Updates/latest.json` beside the executable. Publish the assembler's Windows update ZIP and manifest at the chosen location.
