@@ -2,7 +2,7 @@
 
 - **Owner:** Will Nyarko
 - **Date(s):**
-  - Updated: 2026-10-14
+  - Updated: 2026-11-24
 - **Description:** The three layers the label generator is built around: the Archival World Model, the Yale Canonical Archival Record and the label-ready record.
 
 Archival processing, in both description and arrangement, expresses the same reality in many forms at once: the boxes and folders themselves, the finding aid that describes them, the spreadsheet that records them, the export a system produces, and the habits of the people doing the work. Each form carries part of that reality in its own terms, and it is often hard to see how a thing in one form relates to the same thing in another. Those gaps are where confusion and error enter.
@@ -21,6 +21,8 @@ YCAR takes a small step downstream from the AWM, optimized for Yale's archival r
 
 An LRR holds everything one printed label needs. By the time an LRR is created, there is nothing left for the system to look up: one row per folder label, and one row per box label. LRR rows come from a YCAR record through derivation, where folders are numbered and boxes are counted, and the Word and CSV writers read only these rows. It can thus be seen as a convergence point: everything before it adapting inputs, and everything after it adapting outputs.
 
+The generator assigns folder numbers across the full input before selecting rows for a box or series. Each row also records whether its box indicator came from the source or was supplied as a placeholder. That distinction keeps a source-supplied box 10001 separate from a placeholder with the same digits.
+
 ## The program as a system
 
 ```mermaid
@@ -35,7 +37,8 @@ flowchart TB
         R --> YCAR[YCAR record<br/>one collection]
         YCAR --> DER[Derivation<br/>numbering, boxes]
         DER --> LRR[LRR rows<br/>one per label]
-        LRR --> W[Writers]
+        LRR --> S[Select rows for this run]
+        S --> W[Writers]
         W --> DOCX([Word label sheets])
         W --> ROWS([CSV rows])
     end

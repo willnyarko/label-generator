@@ -4,29 +4,44 @@ from __future__ import annotations
 
 import csv
 import io
+import stat
 from pathlib import Path
 from typing import Optional
 
 from content import say
 from notices import InputError
+from readers.columns import find_header
+from lxml import etree
 
-HEAD_BYTES = 8192
+# An ArchivesSpace note can be longer than csv.reader's default 128 KiB field
+# limit, even in a column the labels do not use. This value fits Windows too.
+csv.field_size_limit(2**31 - 1)
 
+#: The file types the tool takes: EAD exports and bulk import spreadsheets.
 SUPPORTED_SUFFIXES = {".xml", ".csv"}
 
 
 def preflight(path: Path) -> None:
-    if not path.is_file():
-        raise InputError("not-a-file", path=path)
+    try:
+        mode = path.stat().st_mode
+    except (FileNotFoundError, NotADirectoryError):
+        raise InputError("not-a-file", path=path) from None
+    except OSError as exc:
+        raise InputError("cannot-open", path=path.name, reason=exc.strerror or str(exc)) from exc
+    if not stat.S_ISREG(mode):
+        raise InputError("not-a-file", variant="folder" if stat.S_ISDIR(mode) else None, path=path)
     if path.suffix.lower() not in SUPPORTED_SUFFIXES:
-        raise InputError("wrong-file-type", name=path.name)
+        excel = path.suffix.lower() in {".xlsx", ".xls", ".xlsm", ".xlsb"}
+        raise InputError("wrong-file-type", variant="excel" if excel else None)
     try:
         with path.open("rb") as handle:
             first_byte = handle.read(1)
     except OSError as exc:
-        raise InputError("cannot-open", path=path, reason=exc.strerror or exc) from exc
+        raise InputError("cannot-open", path=path.name, reason=exc.strerror or exc) from exc
     if not first_byte:
-        raise InputError("empty-file", path=path)
+        # Left alone, an empty file fails later as "no labelable rows", which
+        # sends staff looking for missing containers in a file with no content.
+        raise InputError("empty-file", path=path.name)
 
 
 def decode_csv(raw: bytes) -> str:
@@ -43,28 +58,35 @@ def csv_rows(path: Path) -> list[list[str]]:
 
 
 def spreadsheet_layout(text: str) -> Optional[str]:
-    lines = text.lower().splitlines()
-    first = lines[0] if lines else ""
-    second = lines[1].lstrip('"') if len(lines) > 1 else ""
-    if "archivesspace field code" in first or second.startswith("field name"):
-        return "native-csv"
-    if "resource uri" in first or "container 1 value" in first:
-        return "yale-csv"
-    return None
+    from itertools import islice
+    header = find_header(list(islice(csv.reader(io.StringIO(text, newline="")), 3)))
+    return header.kind if header else None
 
 
 def detect_input_kind(path: Path) -> str:
-    preflight(path)
-    with path.open("rb") as handle:
-        head = handle.read(HEAD_BYTES)
+    preflight(path)  # leaves only .xml and .csv
     if path.suffix.lower() == ".csv":
-        layout = spreadsheet_layout(decode_csv(head))
+        # Read complete records. A wide template can exceed the old 8 KiB prefix.
+        from itertools import islice
+        for encoding in ("utf-8-sig", "cp1252", "latin-1"):
+            try:
+                with path.open(encoding=encoding, newline="") as handle:
+                    header = find_header(list(islice(csv.reader(handle), 3)))
+                break
+            except UnicodeDecodeError:
+                continue
+        layout = header.kind if header else None
         if layout is None:
             raise InputError("not-bulk-import", name=path.name)
         return layout
-    if b"<ead" in head.lower():
-        return "ead"
-    raise InputError("unreadable-ead", name=path.name, reason=say("ead_reason.not_ead"))
+    try:
+        with path.open("rb") as handle:
+            root = next(etree.iterparse(handle, events=("start",), recover=True), (None, None))[1]
+    except etree.XMLSyntaxError:
+        return "ead"  # Let the full reader supply the parser reason and location.
+    if root is None or etree.QName(root).localname == "ead":
+        return "ead"  # The reader reports malformed XML with the parser detail.
+    raise InputError("unreadable-ead", name=path.name, reason=say("ead_reason.not_ead", line=root.sourceline))
 
 
 def recognised_kind(path: Path) -> Optional[str]:

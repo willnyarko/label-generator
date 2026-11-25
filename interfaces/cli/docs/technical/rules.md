@@ -2,7 +2,7 @@
 
 - **Owner:** Will Nyarko
 - **Date(s):**
-  - Updated: 2026-10-14
+  - Updated: 2026-11-24
 - **Description:** The rules the label generator applies between reading an input and writing labels: identity, hierarchies, choices, containerization, what gets labelled, output files, guarantees and notices.
 
 This document contains the rules (in descriptive prose) that the label generator system applies between reading an input source and writing an output label. Implementation files that apply the rules (as deterministic code) are in:
@@ -27,16 +27,17 @@ Certain EAD elements and spreadsheet fields allow us to know the unique identity
 
 | Label field | From an EAD | From a bulk import spreadsheet |
 | --- | --- | --- |
-| Collection name | `<unittitle>` in the top-level `<did>` | what the user types |
-| Call number | `<unitid>` in the top-level `<did>` | what the user types |
-| Repository | `<repository>` in the top-level `<did>` | the repository number in the resource URI (`/repositories/11/resources/12345`), matched against `config/repositories.json` |
+| Collection name | `<unittitle>` in the top-level `<did>` | Yale `collection_name` or a staff entry |
+| Call number | `<unitid>` in the top-level `<did>` | Yale `call_number`, native `collection_id`, or a staff entry |
+| Repository | `<repository>` in the top-level `<did>` | the supplied repository name or code, or the repository number in the resource URI (`/repositories/11/resources/12345`), matched against `config/repositories.json` |
 
-If, for the label generator, the input is a bulk import spreadsheet, the user will have to provide the collection name and the call number. It asks for each once, early in the run, and carries whatever the user types onto each label. If the user presses Enter instead, the labels show "Collection unavailable" or "Call number unavailable", and the run ends with note 303. Where no repository turns up, the program asks the user to pick one from the list in `config/repositories.json`. A run with no one at the keyboard shows "Repository unavailable" on the labels, followed by note 304.
+The guided CLI asks only for absent fields. Command arguments can supply or correct values for a run. Note 303 identifies each unavailable collection identity field that prints. Note 304 applies when a generated box label uses the repository placeholder. One recognizable CSV header row is enough. Permanent field codes, current display labels, and legacy Yale headers are accepted for the columns used by labeling.
 
 ```mermaid
 flowchart LR
     EAD([EAD]) -->|unittitle, unitid, repository| ID[Collection name<br/>Call number<br/>Repository]
-    CSV([Spreadsheet]) -->|resource URI| REPO[(repositories.json)] --> ID
+    CSV([Spreadsheet]) -->|collection fields| ID
+    CSV -->|repository code or resource URI| REPO[(repositories.json)] --> ID
     USER([User]) -->|types name and call number,<br/>picks a missing repository| ID
     ID --> LABELS[Every label]
 ```
@@ -62,22 +63,11 @@ flowchart LR
 
 ## C. User Choices
 
-Early in each run, the program offers the usual choices or a menu for each choice. The usual choices are the whole collection, folder and box labels, folders shown on box labels, numbering per box wherever the file leaves numbering open, left and right folder labels, and each box's label stock chosen by its container type. A run with no one at the keyboard takes the same choices.
+After collection identity is resolved, the review screen shows the choices for this file. Enter makes the displayed labels. The default is the whole collection with both label types, folder details on boxes, regular folder layout, and automatic box stock. Source numbering takes precedence, with per-box numbering as the fallback.
 
-A user who prefers to choose meets these menus in turn:
+The label settings cover label types, folder details on boxes, folder layout, and box stock. The scope settings cover the whole collection, box indicators, or numbered groups, and folder numbering when open. Aggregate choices are direct children with descendants, in source order. Direct terminal components in a mixed file have their own choice. Flat files omit aggregate selection. A selected folder brings its full box label.
 
-1. **What to label.** The whole collection, chosen boxes, or chosen series, subseries or other aggregates. The program numbers the whole collection first and only then keeps the chosen part, which means a label reads the same whichever part a run covers. Because a box label describes the entire box, a chosen folder brings its box label in full.
-2. **Which labels.** Folder and box labels, folder labels only, or box labels only.
-3. **Folders on box labels.** Shown: each box label ends with the folder range or count. Left off: box labels end at the box line, and folder labels stay as they are. Box labels only with folders left off suits boxes that hold no folders.
-4. **Folder numbering.** Per box, or one count through the collection, which starts at a number the user supplies if the file has no folder numbers. This question comes up only when a label shows folder numbers and the file's own numbers leave the scheme open (see D. Containerization).
-5. **Folder label layout.** Left and right labels, or left labels only.
-6. **Box label stock.** Each box's stock chosen by its container type, or one kind of box for the whole run.
-
-```mermaid
-flowchart LR
-    Q{Usual choices?} -->|yes, or no one at the keyboard| RUN[Make the labels]
-    Q -->|let me choose| M[What to label, which labels,<br/>folders on box labels, numbering,<br/>layout, box stock] --> RUN
-```
+After success the guided CLI offers Finish, Change settings for this file, and Choose another file. The argument-driven command reports outputs and exits. See [Repeatable runs](../end-user/running-the-cli-tool.md#repeatable-runs) for the corresponding arguments.
 
 ## D. Containerization
 
@@ -104,7 +94,7 @@ A terminal component whose containers include a folder is **container-declared**
 | Extent-inferred, extent in folders (`3 folders`) | One row per folder, titled `[i of N]`, numbered later. |
 | Extent-inferred, any other extent or none | One row, numbered later. |
 
-Only an extent whose unit is folders counts folders. A terminal component whose containers give no box number goes into the sentinel box `10001`, and the run ends with note 302 (missing-box).
+Only an extent whose unit is folders counts folders. A terminal component whose containers give no box number goes into the sentinel box `10001`, and Note 302 appears when the selected output prints that placeholder.
 
 Each physical folder takes one label: rows that name the same folder in the same box collapse to the first in shelf order. Shelf order runs box then folder, in natural order: `2` before `10`, and `2` before `2A`.
 
@@ -171,7 +161,7 @@ Every sheet holds two labels across.
 
 A terminal component is a `<c>` or `<cNN>` component of an EAD's `<dsc>`, or a component row of a spreadsheet, with no component beneath it: the leaf of a descriptive branch. Every terminal component produces labels, whatever its containers say. One with no box number goes into the sentinel box `10001`, and its folders come from a folder container, an extent in folders, or a single folder.
 
-An EAD whose `<dsc>` holds no c components, or a spreadsheet with no component rows, leaves nothing to label, and the run stops with error 301. A run for box labels alone stops the same way if every chosen box is `10001`.
+An EAD whose `<dsc>` holds no c components, or a spreadsheet with no component rows, leaves nothing to label, and the run stops with error 301. A run for box labels alone stops the same way if the selected material has no source-supplied box indicator. A source-supplied `10001` is a valid box.
 
 ```mermaid
 flowchart LR
@@ -181,7 +171,7 @@ flowchart LR
 
 ## F. Output files
 
-Every run writes Word label sheets and CSV rows beside the input file. A file picked from Downloads gets copied into the program's folder first, and the labels land there.
+By default the generator writes Word label sheets and CSV rows beside the input. The command accepts an output directory. When possible, the guided picker copies a file chosen from Downloads into the program’s folder and writes the labels there. The run reports the destination.
 
 | File | Written when |
 | --- | --- |
@@ -201,8 +191,8 @@ flowchart LR
 
 - A label reads the same in every run: the program derives and numbers the whole collection first, and a choice of boxes or aggregates then keeps part of it.
 - Every terminal component produces labels.
-- A run with no one at the keyboard, or one where the user picks the usual choices, takes the usual choices listed in C. User Choices.
-- A run for box labels alone, in which every box is `10001`, stops with error 301 (nothing-to-label).
+- The guided review and the unattended command start with the same defaults.
+- A box-only run stops with Error 301 when the selection has no source-supplied box indicator.
 - Leaving folders off box labels leaves folder labels as they are.
 
 ## H. Notices

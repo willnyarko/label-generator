@@ -1,123 +1,85 @@
-"""Bulk-import spreadsheet reader: Yale's custom CSV and ArchivesSpace's native CSV.
-
-The two layouts hold more or less the same facts about a collection, albeit under different headers. Therefore we use a single reader to serve both. Each layout is only a table of header names (``YALE``, ``NATIVE``). A sheet describes the components of a collection or resource. Because the tool takes neither the collection name nor the call number from a sheet, a user will have to type in these values during the run, or if they skip, be notified about it at the end of the run. The tool derives the name of the repository from the resource URI when a row from the spreadsheet has one.
-"""
+"""Read label fields from current Yale-custom, native and legacy single-header CSVs."""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
 
-from models.ycar import Container, DateValue, Extent, Title, YcarComponent, YcarRecord
+from models.ycar import Container, DateValue, Extent, Identifier, Repository, Title, YcarComponent, YcarRecord
+from notices import InputError
+from readers.columns import find_header
 from readers.detect import csv_rows
-from repositories import from_uri
+from repositories import by_code, from_uri
 
 
-@dataclass(frozen=True)
-class Layout:
-    kind: str
-    header_row: int
-    resource_uri: str
-    title: str
-    level: str
-    depth: str
-    unitid: str
-    date: str
-    box: str
-    box_type: tuple[str, ...]
-    folder: str
-    folder_type: tuple[str, ...]
-    extent_number: str
-    extent_unit: str
+def _date(row: dict[str, str]) -> str:
+    if row.get("date"):
+        return row["date"]
+    dates = []
+    for end in ("begin", "end"):
+        value = row.get(end) or "-".join(row[key] for unit in ("year", "month", "day")
+                                         if row.get(key := f"{unit}_{end}"))
+        if value and value not in dates:
+            dates.append(value)
+    return "–".join(dates)
 
 
-YALE = Layout(
-    kind="yale-csv",
-    header_row=0,
-    resource_uri="resource uri",
-    title="title",
-    level="level type",
-    depth="level number",
-    unitid="unitid",
-    date="date expression",
-    box="container 1 value / BOX by default",
-    box_type=("container profile", "container 1 type"),
-    folder="container 2 value / FOLDER by default",
-    folder_type=("container 2 type",),
-    extent_number="extent number",
-    extent_unit="extent value",
-)
-
-NATIVE = Layout(
-    kind="native-csv",
-    header_row=1,
-    resource_uri="Resource URI (either this or EAD ID is *REQUIRED*)",
-    title="Title (either or Date is *REQUIRED*)",
-    level="Description Level *REQUIRED*",
-    depth="Hierarchical Relationship *REQUIRED*",
-    unitid="Component Unique Identifier",
-    date="Date(1) expression",
-    box="Top Container [indicator]",
-    box_type=("Top Container type",),
-    folder="Child indicator",
-    folder_type=("Child type",),
-    extent_number="Extent number *REQUIRED* if specifying Extent",
-    extent_unit="Extent type: cubic feet, cds, etc.*REQUIRED* if specifying Extent",
-)
-
-LAYOUTS = {layout.kind: layout for layout in (YALE, NATIVE)}
-
-
-def read_sheet(path: Path, kind: str) -> YcarRecord:
-    lay = LAYOUTS[kind]
+def read_sheet(path: Path, kind: str, *, header_rows: int | None = None) -> YcarRecord:
     table = csv_rows(path)
-    names = [name.strip() for name in table[lay.header_row]] if len(table) > lay.header_row else []
-    rows = [
-        {name: cell.strip() for name, cell in zip(names, raw, strict=False) if name}
-        for raw in table[lay.header_row + 1 :]
-    ]
-
+    header = find_header(table[:3], header_rows)
+    if header is None:
+        raise InputError("not-bulk-import", name=path.name)
     record = YcarRecord()
     stack: list[YcarComponent] = []
+    for cells in table[header.count:]:
+        row = {key: v.strip() for key, v in zip(header.columns, cells) if key and v.strip()}
+        if row.get("collection") and not record.titles:
+            record.titles.append(Title(row["collection"], kind="unittitle"))
+            record.title_provenance = "declared"
+        if row.get("call_number") and not record.identifiers:
+            record.identifiers.append(Identifier("call-number", row["call_number"]))
+            record.call_number_provenance = "declared"
+        if record.repository is None:
+            repo = from_uri(row.get("uri", "")) or by_code(row.get("repo_code"))
+            if row.get("repository"):
+                repo = Repository(repo.code if repo else "", row["repository"])
+            if repo:
+                record.repository, record.repository_provenance = repo, "declared"
 
-    for row in rows:
-        level = row.get(lay.level, "").lower()
-        if not (level or row.get(lay.box) or row.get(lay.title)):
+        date = _date(row)
+        level = row.get("level", "").lower()
+        if row.get("depth") == "0" and not level:
+            if date and stack:
+                stack[-1].dates.append(DateValue("inclusive", date))
             continue
-
-        comp = YcarComponent(level=level or "file", unitid=row.get(lay.unitid) or None)
-        if row.get(lay.title):
-            comp.title = Title(display=row[lay.title])
-        if row.get(lay.date):
-            comp.dates.append(DateValue(type="inclusive", display=row[lay.date]))
-        if row.get(lay.box):
-            comp.containers.append(Container(kind="box", indicator=row[lay.box], type=_first(row, lay.box_type)))
-        if row.get(lay.folder):
-            comp.containers.append(Container(kind="folder", indicator=row[lay.folder], type=_first(row, lay.folder_type)))
-        count = row.get(lay.extent_number, "")
-        if count and count != "0":
-            comp.extents.append(Extent(kind="extent", quantity=count, unit=row.get(lay.extent_unit, "")))
-
+        if not (date or any(row.get(k) for k in ("level", "title", "box", "folder", "extent", "unitid", "series_no"))):
+            continue
+        comp = YcarComponent(level=level or "file", unitid=row.get("series_no") or row.get("unitid"))
+        if row.get("title"):
+            comp.title = Title(row["title"])
+        if date:
+            comp.dates.append(DateValue("inclusive", date))
+        if row.get("box"):
+            top_type = row.get("box_type", "").lower()
+            comp.containers.append(Container("folder" if top_type == "folder" else "box", row["box"],
+                                             (row.get("profile") or top_type).lower() or None))
+        if row.get("folder"):
+            comp.containers.append(Container("folder", row["folder"], row.get("folder_type", "").lower() or None))
+        if row.get("extent") and row["extent"] != "0":
+            comp.extents.append(Extent(kind="extent", quantity=row["extent"], unit=row.get("extent_unit", "")))
         try:
-            depth = max(int(row.get(lay.depth, "")), 1)
+            depth = max(1, int(row.get("depth", "")))
         except ValueError:
-            depth = 1 if level == "series" or not stack else 2
-        del stack[depth - 1 :]
+            # Without a depth column, only an explicitly described aggregate can
+            # parent another row. Ordinary rows in a reduced sheet are peers.
+            if level in {"series", "recordgrp", "fonds", "collection", "class"}:
+                depth = 1
+            else:
+                while stack and stack[-1].level not in {"series", "subseries", "recordgrp", "fonds", "collection", "class"}:
+                    stack.pop()
+                if level == "subseries" and stack and stack[-1].level == "subseries":
+                    stack.pop()
+                depth = len(stack) + 1
+        del stack[depth - 1:]
         (stack[-1].children if stack else record.components).append(comp)
         stack.append(comp)
-
-    _repository_from_uri(record, rows, lay)
     return record
-
-
-def _first(row: dict[str, str], columns: tuple[str, ...]) -> Optional[str]:
-    return next((row[c].lower() for c in columns if row.get(c)), None)
-
-
-def _repository_from_uri(record: YcarRecord, rows: list[dict[str, str]], lay: Layout) -> None:
-    for row in rows:
-        repository = from_uri(row.get(lay.resource_uri, ""))
-        if repository:
-            record.repository, record.repository_provenance = repository, "declared"
-            break

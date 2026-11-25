@@ -20,9 +20,10 @@ Scope = Literal["all", "boxes", "aggregates"]
 
 @dataclass(frozen=True)
 class Selection:
+
     scope: Scope = "all"
     boxes: tuple[str, ...] = ()
-    aggregates: tuple[tuple[str, ...], ...] = ()
+    aggregates: tuple[int, ...] = ()
     typed: str = ""
 
     @property
@@ -39,8 +40,10 @@ class Selection:
             chosen = set(self.boxes)
             folders = [row for row in bundle.folders if box_key(row.box) in chosen]
         else:
-            folders = [row for row in bundle.folders if any(_within(row.ancestors, path) for path in self.aggregates)]
-            chosen = {box_key(row.box) for row in folders}
+            groups = set(self.aggregates)
+            folders = [row for row in bundle.folders if groups.intersection(row.aggregate_numbers)]
+            box_keys = {(box_key(row.box), row.placeholder_box) for row in folders}
+            return replace(bundle, folders=folders, boxes=[box for box in bundle.boxes if (box.box, box.placeholder_box) in box_keys])
         return replace(bundle, folders=folders, boxes=[box for box in bundle.boxes if box.box in chosen])
 
 
@@ -80,7 +83,3 @@ def read_numbers(typed: str, count: int) -> Optional[tuple[int, ...]]:
 
 def _without_box_word(text: str) -> str:
     return re.sub(r"^box\s+", "", text.strip(), flags=re.IGNORECASE).lower()
-
-
-def _within(ancestors: list[str], path: tuple[str, ...]) -> bool:
-    return tuple(ancestors[: len(path)]) == path if path else not ancestors

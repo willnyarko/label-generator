@@ -30,25 +30,25 @@ def apply_numbering(folders: list[FolderLRR], scheme: NumberingScheme, first_fol
         if row.folder:
             row.folder = _normalize_declared_folder(row.folder)
     per_box = scheme == "per-box"
-    highest: dict[str, int] = {}
+    highest: dict[tuple[str, bool] | None, int] = {}
     for number, boxes in _stated_numbers(folders).items():
-        for box in boxes if per_box else [""]:
+        for box in boxes if per_box else [None]:
             highest[box] = max(highest.get(box, 0), number)
     if not per_box:
-        highest.setdefault("", first_folder - 1)
+        highest.setdefault(None, first_folder - 1)
     for row in folders:
         if not row.folder:
-            scope = row.box if per_box else ""
+            scope = (row.box, row.placeholder_box) if per_box else None
             highest[scope] = highest.get(scope, 0) + 1
             row.folder = str(highest[scope])
 
 
-def _stated_numbers(folders: list[FolderLRR]) -> dict[int, set[str]]:
-    found: dict[int, set[str]] = {}
+def _stated_numbers(folders: list[FolderLRR]) -> dict[int, set[tuple[str, bool]]]:
+    found: dict[int, set[tuple[str, bool]]] = {}
     for row in folders:
         match = re.match(r"\d+", _normalize_declared_folder(row.folder or ""))
         if match:
-            found.setdefault(int(match.group()), set()).add(row.box)
+            found.setdefault(int(match.group()), set()).add((row.box, row.placeholder_box))
     return found
 
 

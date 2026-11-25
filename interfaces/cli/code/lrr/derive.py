@@ -25,6 +25,7 @@ class _BoxSource:
     box: str
     container_type: Optional[str]
     series: str
+    placeholder_box: bool
 
 
 def derive_lrr(
@@ -38,20 +39,23 @@ def derive_lrr(
     call_number = record.call_number()
     repository = record.repository_display()
     box_sources: list[_BoxSource] = []
+    group_numbers: dict[Optional[int], int] = {}
 
     for ancestors, terminal in record.terminal_components():
         ancestor_values = _project_ancestors(ancestors)
-        box_sources.append(
-            _BoxSource(
-                box=_box_number(terminal.containers),
-                container_type=_container_type(terminal),
-                series=ancestor_values[0] if ancestor_values else "",
-            )
+        root = id(ancestors[0]) if ancestors else None
+        if root not in group_numbers:
+            bundle.aggregates.append(ancestor_values[0] if ancestors else None)
+            group_numbers[root] = len(bundle.aggregates)
+        indicator = _box_number(terminal.containers)
+        source = _BoxSource(
+            box=indicator or MISSING_BOX_SENTINEL,
+            container_type=_container_type(terminal),
+            series=ancestor_values[0] if ancestors else "",
+            placeholder_box=indicator is None,
         )
-        bundle.folders.extend(_folder_rows(terminal, collection, call_number, ancestor_values))
-        for path in [tuple(ancestor_values[:depth]) for depth in range(1, len(ancestor_values) + 1)] or [()]:
-            if path not in bundle.aggregates:
-                bundle.aggregates.append(path)
+        box_sources.append(source)
+        bundle.folders.extend(_folder_rows(terminal, collection, call_number, ancestor_values, source, group_numbers[root]))
 
     bundle.folders.sort(key=_sort_key)
     bundle.stated_scheme = stated_scheme(bundle.folders)
@@ -88,12 +92,13 @@ def _build_boxes(
     call_number: str,
     through_collection: bool,
 ) -> list[BoxLRR]:
-    sources_by_box: dict[str, list[_BoxSource]] = {}
+    # Group once so each box reads only its own rows, however many boxes there are.
+    sources_by_box: dict[tuple[str, bool], list[_BoxSource]] = {}
     for source in sorted(sources, key=lambda source: _natural(source.box)):
-        sources_by_box.setdefault(box_key(source.box), []).append(source)
-    folders_by_box: dict[str, list[FolderLRR]] = {}
+        sources_by_box.setdefault((box_key(source.box), source.placeholder_box), []).append(source)
+    folders_by_box: dict[tuple[str, bool], list[FolderLRR]] = {}
     for row in folders:
-        folders_by_box.setdefault(box_key(row.box), []).append(row)
+        folders_by_box.setdefault((box_key(row.box), row.placeholder_box), []).append(row)
 
     boxes: list[BoxLRR] = []
     for key, source_rows in sources_by_box.items():
@@ -105,7 +110,8 @@ def _build_boxes(
                 repository=repository,
                 collection=collection,
                 call_number=call_number,
-                box=key,
+                box=key[0],
+                placeholder_box=key[1],
                 folder_count=_folder_count_text(len(rows)),
                 first_folder=first,
                 last_folder=last,
@@ -140,25 +146,26 @@ def _natural(raw) -> tuple:
 
 
 def _one_label_per_folder(rows: list[FolderLRR]) -> list[FolderLRR]:
-    seen: set[tuple[str, str]] = set()
+    seen: dict[tuple[str, bool, str], FolderLRR] = {}
     kept: list[FolderLRR] = []
     for row in rows:
-        key = (box_key(row.box), str(row.folder or "").strip())
-        if key[1] and key in seen:
+        key = (box_key(row.box), row.placeholder_box, str(row.folder or "").strip())
+        if key[2] and key in seen:
+            seen[key].aggregate_numbers.update(row.aggregate_numbers)
             continue
-        seen.add(key)
+        seen[key] = row
         kept.append(row)
     return kept
 
 
-def _box_number(containers: list[Container]) -> str:
+def _box_number(containers: list[Container]) -> Optional[str]:
     for c in containers:
         if c.kind == "box" and c.indicator:
             return c.indicator
     for c in containers:
         if c.kind != "folder" and c.indicator:
             return c.indicator
-    return MISSING_BOX_SENTINEL
+    return None
 
 
 def _folder_date(comp: YcarComponent) -> str:
@@ -182,6 +189,8 @@ def _folder_rows(
     collection: str,
     call_number: str,
     ancestor_values: list[str],
+    source: _BoxSource,
+    group_number: int,
 ) -> list[FolderLRR]:
     declared = next((c for c in terminal.containers if c.kind == "folder"), None)
     if declared:
@@ -194,9 +203,11 @@ def _folder_rows(
         FolderLRR(
             collection=collection,
             call_number=call_number,
-            box=_box_number(terminal.containers),
+            box=source.box,
+            placeholder_box=source.placeholder_box,
+            aggregate_numbers={group_number},
             folder=folder,
-            container_type=_container_type(terminal),
+            container_type=source.container_type,
             ancestors=ancestor_values,
             folder_title=title
             if len(folders) == 1
@@ -233,6 +244,8 @@ def _project_ancestors(ancestors: list[YcarComponent]) -> list[str]:
 
 def _ancestor_title(component: YcarComponent) -> str:
     title = component.title_display()
+    # A title that opens with "Series 1" or "Series IV" already carries its number; one
+    # such as "Series of lectures" still takes the lead.
     numbered = re.match(r"series\s+([0-9]+|[ivxlcdm]+)\b", title, flags=re.IGNORECASE)
     if (component.level or "").lower() != "series" or not component.unitid or numbered:
         return title

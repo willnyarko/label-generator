@@ -18,8 +18,10 @@ def read_input(
     collection: Optional[str] = None,
     call_number: Optional[str] = None,
     repository: Optional[str] = None,
+    header_rows: Optional[int] = None,
+    input_kind: Optional[str] = None,
 ) -> YcarRecord:
-    kind = detect_input_kind(path)
-    record = read_ead(path) if kind == "ead" else read_sheet(path, kind)
+    kind = input_kind or detect_input_kind(path)
+    record = read_ead(path) if kind == "ead" else read_sheet(path, kind, header_rows=header_rows)
     record.apply_identity(collection=collection, call_number=call_number, repository=by_code(repository))
     return record

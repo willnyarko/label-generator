@@ -51,6 +51,8 @@ def write_word_outputs(
 def render_folder_docx(bundle: LrrBundle, *, layout: str = "regular") -> Document:
     spec = SHEET_SPECS[FOLDER_SHEET]
     doc = Document()
+    # Single spacing leaves room for a date below a wrapped folder title.
+    doc.styles["Normal"].paragraph_format.line_spacing = 1.0
     _setup_page(doc, spec)
     if layout == "left":
         _paginate_folder_left(doc, spec, list(bundle.folders))
@@ -75,16 +77,19 @@ def _setup_page(doc: Document, spec: dict) -> None:
     section.left_margin = Inches(spec["margin_side_in"])
     section.right_margin = Inches(spec["margin_side_in"])
     section.top_margin = Inches(spec["margin_top_in"])
-    section.bottom_margin = Inches(0)
+    section.bottom_margin = Inches(0)  # the labels run to the foot of the sheet
 
 
 def _configure_table(table, spec: dict) -> None:
-    table.allow_autofit = False
+    table.autofit = False
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     w = spec["label_width_in"]
     g = spec["gutter_in"]
     h = spec["label_height_in"]
     col_widths = [w, g, w]
+    # Readers use the table grid as well as the widths on individual cells.
+    for column, width in zip(table.columns, col_widths):
+        column.width = Inches(width)
     for row in table.rows:
         row.height = Inches(h)
         row.height_rule = WD_ROW_HEIGHT_RULE.EXACTLY
@@ -190,5 +195,5 @@ def _fill_box_cell(cell: _Cell, row: BoxLRR, t: dict) -> None:
         _line(cell, row.series, type_=t, center=True)
     _line(cell, box_heading(row), type_=t, center=True)
     folders = box_range_text(row)
-    if folders:
+    if folders:  # a box label without folders ends at the box line
         _line(cell, folders, type_=t, center=True)

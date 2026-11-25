@@ -16,6 +16,7 @@ NumberingScheme = Literal["through-collection", "per-box"]
 
 @dataclass
 class FolderLRR:
+
     collection: str
     call_number: str
     box: str
@@ -24,6 +25,9 @@ class FolderLRR:
     ancestors: list[str] = field(default_factory=list)
     folder_title: str = ""
     folder_dates: str = ""
+    # A physical folder can appear under more than one top-level component.
+    aggregate_numbers: set[int] = field(default_factory=set)
+    placeholder_box: bool = False
 
     @property
     def series(self) -> str:
@@ -44,6 +48,7 @@ class FolderLRR:
 
 @dataclass
 class BoxLRR:
+
     repository: str
     collection: str
     call_number: str
@@ -53,6 +58,7 @@ class BoxLRR:
     last_folder: Optional[str] = None
     container_type: Optional[str] = None
     all_series: list[str] = field(default_factory=list)
+    placeholder_box: bool = False
 
     @property
     def series(self) -> str:
@@ -81,10 +87,13 @@ def _numbered(pattern: str, values: list[str], width: int) -> dict[str, Optional
 class LrrBundle:
     folders: list[FolderLRR] = field(default_factory=list)
     boxes: list[BoxLRR] = field(default_factory=list)
-    stated_scheme: Optional[NumberingScheme] = None
-    numbering: NumberingScheme = "per-box"
-    stated_folders: int = 0
-    aggregates: list[tuple[str, ...]] = field(default_factory=list)
+    stated_scheme: Optional[NumberingScheme] = None  # the scheme the source's own folder numbers show
+    numbering: NumberingScheme = "per-box"  # the scheme the folders are numbered by
+    stated_folders: int = 0  # folders whose number the source states
+    # Menu order is source order. None groups the leaves directly under the resource.
+    aggregates: list[Optional[str]] = field(default_factory=list)
+    # The CSV columns for ancestors and series, sized to the whole collection, so a run
+    # for part of it writes the same columns as a run for all of it.
     ancestor_columns: int = 1
     series_columns: int = 1
 
