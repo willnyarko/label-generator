@@ -5,7 +5,7 @@
   - Updated: 2026-11-24
 - **Description:** The command-line implementation of the label generator.
 
-On Windows, double-click `label-generator.exe` to choose a file, or drag an EAD XML or bulk import CSV file onto the executable. Follow the [guide to making labels](docs/end-user/running-the-cli-tool.md).
+On Windows, double-click `label-generator-cli.exe` to choose a file, or drag an EAD XML or bulk import CSV file onto the executable. Follow the [guide to making labels](docs/end-user/running-the-cli-tool.md).
 
 `code/` contains the program:
 
@@ -37,4 +37,4 @@ docs/
     └── notices.md                    every error and note the program gives
 ```
 
-From the `code/` directory, run `uv run main.py` for the guided program or `uv run main.py run --help` for unattended use. To build an executable for the current platform, run `uv run --with pyinstaller build.py` there. On Windows the result is `dist/label-generator.exe`.
+From the `code/` directory, run `uv run main.py` for the guided program or `uv run main.py run --help` for unattended use. To build an executable for the current platform, run `uv run --with pyinstaller build.py` there. On Windows the result is `dist/label-generator-cli.exe`.

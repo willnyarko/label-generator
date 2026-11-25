@@ -3,7 +3,7 @@
     uv run --with pyinstaller build.py
 
 Run this once on a Mac or on Windows. On a Mac it makes ``dist/label-generator``;
-on Windows it makes ``dist/label-generator.exe``. The program comes with its own
+on Windows it makes ``dist/label-generator-cli.exe``. The program comes with its own
 Python and its ``config/`` files, so there is no need to install anything on the
 computer that uses it.
 
@@ -27,7 +27,7 @@ def main() -> int:
         command = [
             sys.executable, "-m", "PyInstaller",
             "--noconfirm", "--onefile", "--console",
-            "--name", "label-generator",
+            "--name", "label-generator-cli" if os.name == "nt" else "label-generator",
             "--paths", str(CLI),
             "--add-data", f"{CLI / 'config'}{os.pathsep}config",
             "--distpath", str(CLI / "dist"),

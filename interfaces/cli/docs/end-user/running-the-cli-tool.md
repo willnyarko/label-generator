@@ -6,7 +6,7 @@ Use Label Generator to make Word sheets for folder labels, box labels, or both. 
 
 Use an ArchivesSpace finding aid exported as EAD2002 or EAD3 (`.xml`), or a bulk import spreadsheet saved as CSV in the ArchivesSpace-native or Yale-custom layout. One header row is enough. A reduced sheet can use field codes or recognized column names for just the fields you have.
 
-On Windows, double-click `label-generator.exe`. The program looks beside the executable and in recent Downloads, listing up to nine files. Choose by number or choose **Choose another file** and drag in the file or type its path. If you already have the file open in Explorer, you can drag it directly onto the executable to start there.
+On Windows, double-click `label-generator-cli.exe`. The program looks beside the executable and in recent Downloads, listing up to nine files. Choose by number or choose **Choose another file** and drag in the file or type its path. If you already have the file open in Explorer, you can drag it directly onto the executable to start there.
 
 To run from source, open a terminal in the CLI’s `code` directory with `uv` installed. Run `uv run main.py` for the picker, or `uv run main.py "finding aid.xml"` to open a file directly. The project uses Python 3.12.
 
@@ -40,6 +40,6 @@ uv run main.py run example.csv --output-dir labels
 uv run main.py run example.csv --labels boxes --boxes 7 --box-folders omit --output-dir box-only
 ```
 
-The first command lists box 7. The `labels` directory contains two Word sheets and two CSV files, with two folder rows and one box row. The `box-only` directory contains one box sheet and one box CSV. Use the same arguments after `.\label-generator.exe` in PowerShell when running the Windows executable from its folder.
+The first command lists box 7. The `labels` directory contains two Word sheets and two CSV files, with two folder rows and one box row. The `box-only` directory contains one box sheet and one box CSV. Use the same arguments after `.\label-generator-cli.exe` in PowerShell when running the Windows executable from its folder.
 
 Run `uv run main.py run --help` for every option, including collection identity, numbering, label stock, and how many CSV header rows to read. A successful command exits with status 0. Status 1 indicates a file or generation error. Status 2 indicates invalid command arguments.

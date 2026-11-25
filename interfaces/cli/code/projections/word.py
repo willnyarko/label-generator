@@ -181,10 +181,9 @@ def _fill_folder_left_cell(cell: _Cell, row: FolderLRR) -> None:
 
 def _fill_folder_right_cell(cell: _Cell, row: FolderLRR) -> None:
     t = typography()["folder"]
-    _line(cell, ancestor_chain(row), type_=t, first=True)
-    _line(cell, str(row.folder_title), type_=t)
-    if row.folder_dates:
-        _line(cell, str(row.folder_dates), type_=t)
+    lines = (ancestor_chain(row), row.folder_title, row.folder_dates)
+    for index, text in enumerate(filter(None, lines)):
+        _line(cell, text, type_=t, first=index == 0)
 
 
 def _fill_box_cell(cell: _Cell, row: BoxLRR, t: dict) -> None:
